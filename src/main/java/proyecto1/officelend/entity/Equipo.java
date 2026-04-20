@@ -21,6 +21,6 @@ public class Equipo {
     private String descripcion;
     @Column( name = "existencias", nullable = false)
     private int existencias;
-    @Column( name = "disponible", nullable = false)
-    private boolean disponible;
+    @Column( name = "estado", nullable = false)
+    private boolean estado;
 }

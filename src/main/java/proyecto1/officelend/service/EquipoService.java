@@ -17,23 +17,23 @@ public class EquipoService {
         this.equipoRepositorio = equipoRepositorio;
     }
 
-    public Equipo add(Equipo equipo) {
+    public Equipo registrarEquipo(Equipo equipo) {
         return equipoRepositorio.save(equipo);
     }
 
-    public List<Equipo> get() {
+    public List<Equipo> obtenerEquipos() {
         return equipoRepositorio.findAll();
     }
 
-    public Optional<Equipo> getById(int id) {
+    public Optional<Equipo> consultarEquipo(int id) { 
         return equipoRepositorio.findById(id);
     }
 
-    public void delete(int id) {
+    public void eliminarEquipo(int id) {
         equipoRepositorio.deleteById(id);
     }
 
-    public Equipo update(int id, Equipo equipo) {
+    public Equipo actualizarEquipo(int id, Equipo equipo) {
         Optional<Equipo> existingEquipo = equipoRepositorio.findById(id);
         if (existingEquipo.isPresent()) {
             Equipo updatedEquipo = existingEquipo.get();

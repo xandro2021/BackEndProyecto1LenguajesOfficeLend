@@ -1,0 +1,228 @@
+:root {
+    --surface: #f7f9fb;
+    --on-surface: #191c1e;
+    --on-surface-variant: #444651;
+    --primary: #00236f;
+    --on-primary: #ffffff;
+    --primary-container: #1e3a8a;
+    --on-primary-container: #90a8ff;
+    --primary-fixed: #dce1ff;
+    --secondary: #855300;
+    --secondary-container: #fea619;
+    --on-secondary: #ffffff;
+    --error: #ba1a1a;
+    --error-container: #ffdad6;
+    --on-error-container: #93000a;
+    --surface-container-low: #f2f4f6;
+    --surface-container: #eceef0;
+    --surface-container-high: #e6e8ea;
+    --surface-container-lowest: #ffffff;
+    --outline-variant: #c5c5d3;
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--surface);
+    color: var(--on-surface);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--surface);
+    color: var(--on-surface);
+}
+
+h1, h2, h3, .brand-font {
+    font-family: 'Manrope', sans-serif;
+}
+
+
+.font-headline {
+    font-family: 'Manrope', sans-serif;
+}
+
+.h-8 {
+    height: 2rem;
+}
+
+.w-8 {
+    width: 2rem;
+}
+
+.h-10 {
+    height: 2.5rem;
+}
+
+.w-10 {
+    width: 2.5rem;
+}
+
+.logo {
+    width: 40px;
+    height: 40px;
+}
+
+.logo-title {
+    font-size: 2.8rem;
+}
+
+.fs-1-3rem {
+    font-size: 1.3rem;
+}
+
+.fs-n3,
+a {
+    font-size: 1.62rem;
+}
+
+
+/* ── Main ── */
+main {
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+}
+
+/* ── Page Header ── */
+.page-title {
+    font-family: 'Manrope', sans-serif;
+    font-size: 5rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: -0.03em;
+    margin-bottom: 0.35rem;
+    line-height: 1.1;
+}
+
+.page-subtitle {
+    font-size: 2rem;
+    color: var(--on-surface-variant);
+    max-width: 640px;
+    line-height: 1.7;
+    margin: 0px;
+}
+
+.nav-link.active {
+    color: var(--primary) !important;
+    border-bottom: 2px solid #F59E0B;
+    font-weight: 700;
+}
+
+.btn-custom-primary {
+    background-color: var(--primary);
+    color: var(--surface-container-lowest);
+}
+
+.btn-custom-primary:hover {
+    background-color: var(--surface-container-lowest);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+}
+
+.text-custom-primary {
+    color: var(--primary);
+}
+
+/* Scrollbar style (tonal silencing) */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #e0e3e5;
+    border-radius: 10px;
+}
+
+/* Material Icons alignment */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    vertical-align: middle;
+    font-size: 2rem;
+}
+
+.small {
+font-size: 1.1rem;
+}
+
+h4 {
+font-size: 2rem;
+}
+
+h6 {
+font-size: 1.4rem;
+}
+
+span.badge {
+font-size: 1.1rem;
+}
+
+.inventstatus_span {
+font-size: 1.3rem;
+}
+
+h1, h2, h3, .headline {
+    font-family: 'Manrope', sans-serif;
+}
+
+.h-10 {
+height: 2.5rem;
+}
+
+.btn_grafico {
+font-size: 1.2rem;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+
+.card-stat {
+    transition: all 0.2s ease;
+}
+.card-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+}
+
+.bar-chart div {
+    transition: height 0.4s ease;
+}
+
+.grafico_small small {
+font-size: 1rem;
+}
+
+.small {
+font-size: 1.2rem;
+}
+
+.text-1-1rem {
+font-size: 1.1rem;
+}
+
+.text-1-2rem {
+font-size: 1.2rem;
+}
+
+.text-1-4rem {
+    font-size: 1.4rem;
+}
+
+.text-1-8rem {
+    font-size: 1.8rem;
+}

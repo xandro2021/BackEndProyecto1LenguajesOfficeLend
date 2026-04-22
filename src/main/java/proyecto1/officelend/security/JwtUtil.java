@@ -14,53 +14,60 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret}")
-    private String secret;
+  @Value("${jwt.secret}")
+  private String secret;
 
-    @Value("${jwt.expiration}")
-    private long expiration;
+  @Value("${jwt.expiration}")
+  private long expiration;
 
-    private SecretKey getSigningKey() {
-        // Si usas una clave literal larga, conviene pasarla en Base64 real.
-        // Para laboratorio, esto puede funcionar si guardas la clave en Base64.
-        byte[] keyBytes = Decoders.BASE64.decode(secret);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
+  private SecretKey getSigningKey() {
+    // Si usas una clave literal larga, conviene pasarla en Base64 real.
+    // Para laboratorio, esto puede funcionar si guardas la clave en Base64.
+    byte[] keyBytes = Decoders.BASE64.decode(secret);
+    return Keys.hmacShaKeyFor(keyBytes);
+  }
 
-    public String generateToken(UserDetails userDetails) {
-        Date now = new Date();
-        Date expiryDate = new Date(now.getTime() + expiration);
+  public String generateToken(UserDetails userDetails) {
+    Date now = new Date();
+    Date expiryDate = new Date(now.getTime() + expiration);
 
-        return Jwts.builder()
-                .subject(userDetails.getUsername())
-                .issuedAt(now)
-                .expiration(expiryDate)
-                .signWith(getSigningKey(), Jwts.SIG.HS256)
-                .compact();
-    }
+    // Extraer role desde authorities
+    String role = userDetails.getAuthorities().stream()
+        .findFirst()
+        .map(a -> a.getAuthority())
+        .orElse("ROLE_USER");
 
-    public String extractUsername(String token) {
-        return extractAllClaims(token).getSubject();
-    }
+    return Jwts.builder()
+        .subject(userDetails.getUsername())
+        .claim("role", role) // agregar el role como un claim
+        .issuedAt(now)
+        .expiration(expiryDate)
+        .signWith(getSigningKey(), Jwts.SIG.HS256)
+        .compact();
+  }
 
-    public Date extractExpiration(String token) {
-        return extractAllClaims(token).getExpiration();
-    }
+  public String extractUsername(String token) {
+    return extractAllClaims(token).getSubject();
+  }
 
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        String username = extractUsername(token);
-        return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
-    }
+  public Date extractExpiration(String token) {
+    return extractAllClaims(token).getExpiration();
+  }
 
-    private boolean isTokenExpired(String token) {
-        return extractExpiration(token).before(new Date());
-    }
+  public boolean isTokenValid(String token, UserDetails userDetails) {
+    String username = extractUsername(token);
+    return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
+  }
 
-    private Claims extractAllClaims(String token) {
-        return Jwts.parser()
-                .verifyWith(getSigningKey())
-                .build()
-                .parseSignedClaims(token)
-                .getPayload();
-    }
+  private boolean isTokenExpired(String token) {
+    return extractExpiration(token).before(new Date());
+  }
+
+  private Claims extractAllClaims(String token) {
+    return Jwts.parser()
+        .verifyWith(getSigningKey())
+        .build()
+        .parseSignedClaims(token)
+        .getPayload();
+  }
 }

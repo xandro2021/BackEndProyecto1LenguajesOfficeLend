@@ -30,10 +30,19 @@ public class User {
   @OneToMany(mappedBy = "user")
   private List<Loan> loans;
 
-  public User() {}
+  public User() {
+  }
+
+  public User(String username, String password, String email, String role, String fullName) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.role = role;
+    this.fullName = fullName;
+  }
 
   public User(int id, String username, String password, String email,
-              String role, String fullName, List<Loan> loans) {
+      String role, String fullName, List<Loan> loans) {
     this.id = id;
     this.username = username;
     this.password = password;

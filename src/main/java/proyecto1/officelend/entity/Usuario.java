@@ -1,5 +1,7 @@
 package proyecto1.officelend.entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,6 +35,7 @@ public class Usuario {
   @Column(name = "nombre_completo", nullable = false)
   private String nombreCompleto;
 
-  
-  
+  @OneToMany(mappedBy = "usuario")
+ private List<Prestamo> prestamo;
+
 }

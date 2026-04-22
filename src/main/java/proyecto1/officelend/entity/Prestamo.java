@@ -28,8 +28,11 @@ public class Prestamo {
     @Column(name = "estado", nullable = false)
     private boolean estado;
 
-    @ManyToOne
+ @ManyToOne
  @JoinColumn(name = "equipo_id")
  private Equipo equipo;
 
+ @ManyToOne
+ @JoinColumn(name = "usuario_id")
+ private Usuario usuario;
 }

@@ -7,14 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import proyecto1.officelend.entity.Prestamo;
-import proyecto1.officelend.repository.PrestamoRepositorio;
+import proyecto1.officelend.repository.PrestamoRepository;
 
 @Service
 public class PrestamoService {
     
-     private PrestamoRepositorio prestamoRepositorio;
+     private PrestamoRepository prestamoRepositorio;
 
-    public PrestamoService(PrestamoRepositorio prestamoRepositorio) {
+    public PrestamoService(PrestamoRepository prestamoRepositorio) {
         this.prestamoRepositorio = prestamoRepositorio;
     }
 

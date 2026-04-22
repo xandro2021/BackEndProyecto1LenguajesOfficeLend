@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OfficelendApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OfficelendApplication.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(OfficelendApplication.class, args);
+  }
 
 }

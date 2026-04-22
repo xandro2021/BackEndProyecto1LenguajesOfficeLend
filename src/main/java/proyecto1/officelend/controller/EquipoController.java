@@ -15,12 +15,12 @@ import proyecto1.officelend.service.EquipoService;
 @RestController 
 @RequestMapping("/equipos")
 
-public class ControllerEquipo {
+public class EquipoController {
     @Autowired
     private EquipoService equipoService;
 
     @GetMapping
-    @Operation(summary = "Obtener todas las categorías", description = "Devuelve una lista de categorías")
+    @Operation(summary = "Obtener todos los equipos", description = "Devuelve una lista de equipos")
     public List<Equipo> get() {
         return equipoService.obtenerEquipos();
     }

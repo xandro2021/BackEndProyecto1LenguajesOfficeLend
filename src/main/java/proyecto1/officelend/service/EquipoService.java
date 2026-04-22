@@ -6,14 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import proyecto1.officelend.repository.EquipoRepositorio;
+import proyecto1.officelend.repository.EquipoRepository;
 import proyecto1.officelend.entity.Equipo;
 
 @Service
 public class EquipoService {
-     private EquipoRepositorio equipoRepositorio;
+     private EquipoRepository equipoRepositorio;
 
-    public EquipoService(EquipoRepositorio equipoRepositorio) {
+    public EquipoService(EquipoRepository equipoRepositorio) {
         this.equipoRepositorio = equipoRepositorio;
     }
 

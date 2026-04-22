@@ -1,7 +1,6 @@
 package proyecto1.officelend.entity;
 
 import jakarta.persistence.*;
-<<<<<<< HEAD
 
 @Entity
 @Table(name = "equipos")
@@ -87,28 +86,4 @@ public class Equipo {
         + ", existencias=" + existencias + ", estado=" + estado + "]";
   }
 
-=======
-import lombok.*;
-
-@Entity
-@Table(name = "equipos")
-@Setter
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class Equipo {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column( name = "nombre", nullable = false)
-    private String nombre;
-    @Column( name = "tipo", nullable = false)
-    private String tipo;
-    @Column( name = "descripcion", nullable = false)
-    private String descripcion;
-    @Column( name = "existencias", nullable = false)
-    private int existencias;
-    @Column( name = "estado", nullable = false)
-    private boolean estado;
->>>>>>> 835c2a1 (merge de rama backend a main)
 }

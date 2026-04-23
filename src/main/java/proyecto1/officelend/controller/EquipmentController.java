@@ -5,11 +5,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import proyecto1.officelend.entity.Equipment;
 import proyecto1.officelend.service.EquipmentService;
 
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Equipment", description = "API for managing equipment")
 @RestController
 @RequestMapping("/equipment")

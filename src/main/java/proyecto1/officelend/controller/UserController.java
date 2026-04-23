@@ -2,8 +2,15 @@ package proyecto1.officelend.controller;
 import proyecto1.officelend.entity.User;
 import proyecto1.officelend.repository.UserRepository;
 import org.springframework.web.bind.annotation.*;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 import java.util.List;
 
+@CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearerAuth")
+@Tag(name = "Users", description = "API for managing users")
 @RestController
 @RequestMapping("/users")
 public class UserController {

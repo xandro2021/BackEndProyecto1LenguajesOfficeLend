@@ -6,11 +6,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import proyecto1.officelend.entity.Loan;
 import proyecto1.officelend.service.LoanService;
 
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Loans", description = "API for managing loans")
 @RestController
 @RequestMapping("/loans")

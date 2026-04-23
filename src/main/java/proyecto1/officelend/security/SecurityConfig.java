@@ -32,15 +32,20 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/", "/login").permitAll()
-            .requestMatchers("/admin/catalogo", "/user/catalogo").permitAll() // ✅ views are public
-            .requestMatchers("/css/**", "/img/**", "/js/**").permitAll() // already there ✅
-            .requestMatchers("/all").permitAll()
-            .requestMatchers("/swagger-ui/**").permitAll()
+            .requestMatchers("/admin/catalogo", "/user/catalogo").permitAll()
             .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN") // API endpoints still protected
+            .requestMatchers("/all").permitAll()
+            .requestMatchers(
+                "/swagger-ui/**",
+                "/swagger-ui.html",
+                "/v3/api-docs/**",
+                "/v3/api-docs.yaml")
+            .permitAll()
+            .requestMatchers("/admin/**").hasRole("ADMIN")
             .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-            .requestMatchers("/products/**").authenticated()
-            .requestMatchers("/categories/**").authenticated()
+            .requestMatchers("/loans/**").authenticated()
+            .requestMatchers("/equipment/**").authenticated()
+            .requestMatchers("/users/**").authenticated()
             .anyRequest().authenticated())
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
         .build();

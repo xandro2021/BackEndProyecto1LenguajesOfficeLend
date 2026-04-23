@@ -1,6 +1,8 @@
 package proyecto1.officelend.controller;
 import proyecto1.officelend.entity.User;
 import proyecto1.officelend.repository.UserRepository;
+
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,12 +26,14 @@ public class UserController {
 
     // List all users
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public List<User> getUsers() {
         return userRepository.findAll();
     }
 
     // Find user by ID
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public User getUserById(@PathVariable Integer id) {
         return userRepository.findById(id).orElse(null);
     }

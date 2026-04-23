@@ -9,7 +9,7 @@
 ### ========================================
 
 @baseUrl = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc2OTY5NTQ0LCJleHAiOjE3NzY5NzMxNDR9.tKOXGdD8q7M5ubZYZQXUbuGIvyx_TG30aim71Z6lW8o
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTc3Njk3NjE0MSwiZXhwIjoxNzc2OTc5NzQxfQ.AkLHZD4JJV_GVOIY660oIpe6Yf3OSBROyucXGFcWvho
 
 
 ### ========================================
@@ -48,7 +48,7 @@ Authorization: Bearer {{token}}
 ###
 
 ### Obtener equipo por ID
-GET {{baseUrl}}/equipment/1
+GET {{baseUrl}}/equipment/2
 Authorization: Bearer {{token}}
 
 ###
@@ -59,32 +59,32 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Laptop Dell XPS",
-  "type": "Computadora",
-  "description": "Laptop de alto rendimiento para trabajo de oficina",
-  "stock": 5,
+  "name": "Proyector Samsung2",
+  "type": "Electronica",
+  "description": "Proyecto de 50 pulgadas para poder transmitir la pantalla a una audiencia",
+  "stock": 7,
   "status": true
 }
 
 ###
 
 ### Actualizar equipo por ID
-PUT {{baseUrl}}/equipment/1
+PUT {{baseUrl}}/equipment/3
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Laptop Dell XPS 15",
+  "name": "Laptop Mini Thinkpad 2in1 12",
   "type": "Computadora",
   "description": "Laptop actualizada con más RAM",
-  "stock": 3,
+  "stock": 7,
   "status": true
 }
 
 ###
 
 ### Eliminar equipo por ID
-DELETE {{baseUrl}}/equipment/1
+DELETE {{baseUrl}}/equipment/3
 Authorization: Bearer {{token}}
 
 

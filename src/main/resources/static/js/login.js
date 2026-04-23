@@ -25,6 +25,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
     }
 
     const data = await response.json();
+    console.log('Login response:', data); // check this in browser console
     const token = data.token;
 
     // Save token for future requests

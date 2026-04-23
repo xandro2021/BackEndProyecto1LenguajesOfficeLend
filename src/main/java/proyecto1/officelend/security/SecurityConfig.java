@@ -33,6 +33,7 @@ public class SecurityConfig {
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/", "/login").permitAll()
             .requestMatchers("/admin/catalogo", "/user/catalogo").permitAll() // ✅ views are public
+            .requestMatchers("/css/**", "/img/**", "/js/**").permitAll() // already there ✅
             .requestMatchers("/all").permitAll()
             .requestMatchers("/swagger-ui/**").permitAll()
             .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()

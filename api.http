@@ -1,0 +1,202 @@
+### ========================================
+### OFFICELEND API - REST Client (VS Code)
+### ========================================
+### Instrucciones:
+### 1. Ejecuta el login (admin o user)
+### 2. Copia el token de la respuesta
+### 3. Reemplaza el token en @token (abajo)
+### 4. Usa los endpoints que necesites
+### ========================================
+
+@baseUrl = http://localhost:8080
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc2OTY5NTQ0LCJleHAiOjE3NzY5NzMxNDR9.tKOXGdD8q7M5ubZYZQXUbuGIvyx_TG30aim71Z6lW8o
+
+
+### ========================================
+### AUTH
+### ========================================
+
+### Login como ADMIN
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+###
+
+### Login como USER
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "user"
+}
+
+
+### ========================================
+### EQUIPMENT
+### ========================================
+
+### Obtener todos los equipos
+GET {{baseUrl}}/equipment
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener equipo por ID
+GET {{baseUrl}}/equipment/1
+Authorization: Bearer {{token}}
+
+###
+
+### Crear nuevo equipo
+POST {{baseUrl}}/equipment
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Dell XPS",
+  "type": "Computadora",
+  "description": "Laptop de alto rendimiento para trabajo de oficina",
+  "stock": 5,
+  "status": true
+}
+
+###
+
+### Actualizar equipo por ID
+PUT {{baseUrl}}/equipment/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Laptop Dell XPS 15",
+  "type": "Computadora",
+  "description": "Laptop actualizada con más RAM",
+  "stock": 3,
+  "status": true
+}
+
+###
+
+### Eliminar equipo por ID
+DELETE {{baseUrl}}/equipment/1
+Authorization: Bearer {{token}}
+
+
+### ========================================
+### LOANS
+### ========================================
+
+### Obtener todos los préstamos
+GET {{baseUrl}}/loans
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener préstamo por ID
+GET {{baseUrl}}/loans/1
+Authorization: Bearer {{token}}
+
+###
+
+### Crear nuevo préstamo
+POST {{baseUrl}}/loans
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "requestDate": "2025-01-20",
+  "startDate": "2025-01-21",
+  "estimatedEndDate": "2025-01-28",
+  "actualReturnDate": "2025-01-28",
+  "status": true,
+  "equipment": {
+    "id": 1
+  },
+  "user": {
+    "id": 1
+  }
+}
+
+###
+
+### Actualizar préstamo por ID
+PUT {{baseUrl}}/loans/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "requestDate": "2025-01-20",
+  "startDate": "2025-01-21",
+  "estimatedEndDate": "2025-02-04",
+  "actualReturnDate": "2025-02-04",
+  "status": false,
+  "equipment": {
+    "id": 1
+  },
+  "user": {
+    "id": 1
+  }
+}
+
+###
+
+### Eliminar préstamo por ID
+DELETE {{baseUrl}}/loans/1
+Authorization: Bearer {{token}}
+
+
+### ========================================
+### USERS
+### ========================================
+
+### Obtener todos los usuarios
+GET {{baseUrl}}/users
+Authorization: Bearer {{token}}
+
+###
+
+### Obtener usuario por ID
+GET {{baseUrl}}/users/1
+Authorization: Bearer {{token}}
+
+###
+
+### Crear nuevo usuario
+POST {{baseUrl}}/users
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "jdoe",
+  "password": "password123",
+  "email": "jdoe@officelend.com",
+  "role": "ROLE_USER",
+  "fullName": "John Doe"
+}
+
+###
+
+### Actualizar usuario por ID
+PUT {{baseUrl}}/users/3
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "username": "jdoe",
+  "password": "newpassword456",
+  "email": "jdoe_updated@officelend.com",
+  "role": "ROLE_USER",
+  "fullName": "John Doe Updated"
+}
+
+###
+
+### Eliminar usuario por ID
+DELETE {{baseUrl}}/users/3
+Authorization: Bearer {{token}}

@@ -32,7 +32,11 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> auth
             .requestMatchers("/auth/**").permitAll()
             .requestMatchers("/", "/login").permitAll()
-            .requestMatchers("/admin/catalogo", "/user/catalogo").permitAll()
+
+            // Todas las vistas Thymeleaf van aquí
+            .requestMatchers("/admin/**", "/user/**").permitAll() // vistas públicas, el guard.js maneja la auth
+            .requestMatchers("/error").permitAll()
+
             .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
             .requestMatchers("/all").permitAll()
             .requestMatchers(
@@ -41,8 +45,8 @@ public class SecurityConfig {
                 "/v3/api-docs/**",
                 "/v3/api-docs.yaml")
             .permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+
+            // Solo los endpoints REST siguen protegidos por JWT
             .requestMatchers("/loans/**").authenticated()
             .requestMatchers("/equipment/**").authenticated()
             .requestMatchers("/users/**").authenticated()

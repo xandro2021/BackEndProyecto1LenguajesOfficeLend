@@ -112,6 +112,10 @@ main {
     margin: 0px;
 }
 
+.nav-link {
+    font-size: 1.8rem;
+}
+
 .nav-link.active {
     color: var(--primary) !important;
     border-bottom: 2px solid #F59E0B;

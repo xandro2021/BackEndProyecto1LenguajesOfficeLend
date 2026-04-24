@@ -30,10 +30,10 @@
 
                 <!-- Navegación desktop -->
                 <nav class="d-none d-md-flex gap-4">
-                    <a class="nav-link text-custom-primary " href="#">Dashboard</a>
-                    <a class="nav-link active text-custom-primary " href="catalogoUser.html">Equipos</a>
-                    <a class="nav-link text-custom-primary " href="historialSolicitudesUser.html">Préstamos</a>
-                    <a class="nav-link text-custom-primary " href="#">Reportes</a>
+                    <a class="nav-link text-custom-primary" th:href="@{/admin/dashboard}">Dashboard</a>
+                    <a class="nav-link active text-custom-primary" th:href="@{/admin/catalogo}">Equipos</a>
+                    <a class="nav-link text-custom-primary" th:href="@{/admin/prestamos}">Préstamos</a>
+                    <a class="nav-link text-custom-primary" href="#">Reportes</a>
                 </nav>
 
                 <!-- Acciones usuario -->
@@ -57,252 +57,248 @@
     <!-- Main Content -->
     <main class="container py-5">
         <!-- Content Canvas (max-width container) -->
-            <div class="space-y-8 d-flex flex-column gap-4">
-                <!-- Header Section -->
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-4">
-                    <div>
-                        <h1 class="page-title" >Gestión de Inventario</h1>
-                        <p class="page-subtitle">Supervisa y organiza los activos
-                            tecnológicos de la institución con control total de estados y disponibilidad.</p>
-                    </div>
-                    <button
-                        class="btn btn-custom-gradient d-inline-flex align-items-center gap-2 px-4 py-3 rounded-xl shadow-lg">
-                        <span class="material-symbols-outlined">add_circle</span>
-                        Agregar Nuevo Equipo
-                    </button>
+        <div class="space-y-8 d-flex flex-column gap-4">
+            <!-- Header Section -->
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-4">
+                <div>
+                    <h1 class="page-title">Gestión de Inventario</h1>
+                    <p class="page-subtitle">Supervisa y organiza los activos
+                        tecnológicos de la institución con control total de estados y disponibilidad.</p>
                 </div>
+                <a th:href="@{/admin/catalogo/nuevo}"
+                    class="btn btn-custom-gradient d-inline-flex align-items-center gap-2 px-4 py-3 rounded-xl shadow-lg">
+                    <span class="material-symbols-outlined">add_circle</span>
+                    Agregar Nuevo Equipo
+                </a>
+            </div>
 
-                <!-- Filters & Bento Insights row -->
-                <div class="row g-4">
-                    <div class="col-lg-8">
-                        <div class="row g-4">
-                            <div class="col-md-4">
-                                <div
-                                    class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-primary">
-                                    <p class="text-primary fw-bold text-uppercase mb-2"
-                                        style="font-size: 0.7rem; letter-spacing: 0.05em;">Total Equipos</p>
-                                    <div class="d-flex align-items-end gap-2">
-                                        <span class="display-6 fw-black text-on-surface">1,248</span>
-                                        <span class="text-success small fw-bold mb-1">+12% mes</span>
-                                    </div>
+            <!-- Filters & Bento Insights row -->
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="row g-4">
+                        <div class="col-md-4">
+                            <div class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-primary">
+                                <p class="text-primary fw-bold text-uppercase mb-2"
+                                    style="font-size: 0.7rem; letter-spacing: 0.05em;">Total Equipos</p>
+                                <div class="d-flex align-items-end gap-2">
+                                    <span class="display-6 fw-black text-on-surface">1,248</span>
+                                    <span class="text-success small fw-bold mb-1">+12% mes</span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div
-                                    class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-secondary">
-                                    <p class="text-secondary fw-bold text-uppercase mb-2" style="font-size: 0.7rem;">En
-                                        Mantenimiento</p>
-                                    <div class="d-flex align-items-end gap-2">
-                                        <span class="display-6 fw-black text-on-surface">42</span>
-                                        <span class="text-slate-400 small fw-medium mb-1">Requiere atención</span>
-                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div
+                                class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-secondary">
+                                <p class="text-secondary fw-bold text-uppercase mb-2" style="font-size: 0.7rem;">En
+                                    Mantenimiento</p>
+                                <div class="d-flex align-items-end gap-2">
+                                    <span class="display-6 fw-black text-on-surface">42</span>
+                                    <span class="text-slate-400 small fw-medium mb-1">Requiere atención</span>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div
-                                    class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-success">
-                                    <p class="text-success fw-bold text-uppercase mb-2" style="font-size: 0.7rem;">
-                                        Disponibilidad</p>
-                                    <div class="d-flex align-items-end gap-2">
-                                        <span class="display-6 fw-black text-on-surface">84%</span>
-                                        <span class="text-slate-400 small fw-medium mb-1">De la flota</span>
-                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="bg-surface-container-low p-4 rounded-2xl border-bottom border-4 border-success">
+                                <p class="text-success fw-bold text-uppercase mb-2" style="font-size: 0.7rem;">
+                                    Disponibilidad</p>
+                                <div class="d-flex align-items-end gap-2">
+                                    <span class="display-6 fw-black text-on-surface">84%</span>
+                                    <span class="text-slate-400 small fw-medium mb-1">De la flota</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm">
-                            <h3 class="fw-bold text-slate-800 fs-1-3rem d-flex align-items-center gap-2 mb-3">
-                                <span class="material-symbols-outlined ">filter_list</span> Filtros de Vista
-                            </h3>
-                            <div class="mb-3">
-                                <label class="text-uppercase text-slate-400 fw-bold"
-                                    >Categoría</label>
-                                <select class="form-select mt-3 py-2 px-3 rounded-lg">
-                                    <option>Todas las categorías</option>
-                                    <option>Laptops</option>
-                                    <option>Periféricos</option>
-                                    <option>Mobiliario</option>
-                                </select>
-                            </div>
-                            <div class="d-flex flex-wrap gap-2 pt-2">
-                                <button class="btn btn-custom-primary rounded-pill px-3 py-1" >Todos</button>
-                                <button class="btn bg-slate-100 text-slate-600 rounded-pill px-3 py-1" >Disponibles</button>
-                                <button class="btn bg-slate-100 text-slate-600 rounded-pill px-3 py-1" >Ocupados</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-
-                <!-- Inventory Table Area -->
-                <div class="bg-surface-container-lowest rounded-3xl shadow-xl overflow-hidden">
-                    <div class="table-responsive">
-                        <table class="table table-custom align-middle w-100 mb-0">
-                            <thead class="bg-slate-50/50">
-                                <tr>
-                                    <th class="text-uppercase text-slate-400 fw-bold" >Equipo e Identificación</th>
-                                    <th class="text-uppercase text-slate-400 fw-bold" > Categoría</th>
-                                    <th class="text-uppercase text-slate-400 fw-bold" >Estado </th>
-                                    <th class="text-uppercase text-slate-400 fw-bold text-center" >Stock</th>
-                                    <th class="text-uppercase text-slate-400 fw-bold text-end" >Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y">
-                                <!-- MacBook Pro -->
-                                <tr class="group transition-colors hover-bg-light">
-                                    <td class="py-4 px-4">
-                                        <div class="d-flex align-items-center gap-3">
-                                            <img class="table-img"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNzzBzg08f0qDr_phQbhQZMRs8GQ2p7DJPJU1A7KduNlR-qk-8oUJEWTwFbaLSW_ZzRydb0ycuOyyDY4TiZsxw6DsY5mGmvVrQTY0Ky87xruEYCv4Y0VbSZoWF2RiuxRNFaWsp2whw81-q2V21ElEJOSTMsV-2BbAjM_PaESrHWXwNhGc40iJ5PDNLpdqs2CEFEdOL5v0-S_fq_ZZyd7UTC2Ku4_R5KbFSGQt1unGRDUiaQvM2ppTcJ0E6anToRElwWxYVPjPyqPk"
-                                                alt="MacBook">
-                                            <div>
-                                                <p class="fw-bold text-slate-900 mb-0">MacBook Pro 14" M2</p>
-                                                <p class="text-slate-400 font-monospace small mb-0">ID: OL-LT-0429</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge-laptop">Laptops</span></td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2"><span
-                                                class="status-dot status-dot-green animate-pulse"></span><span
-                                                class="small fw-bold text-green-700">Disponible</span></div>
-                                    </td>
-                                    <td class="text-center"><span class="fw-bold text-slate-900">12</span><br><span
-                                            class="text-slate-400" style="font-size: 0.6rem;">Unidades</span></td>
-                                    <td class="text-end">
-                                        <div class="d-flex justify-content-end gap-2">
-                                            <button class="btn p-1 hover-bg-primary/5 rounded"><span
-                                                    class="material-symbols-outlined">edit</span></button>
-                                            <button class="btn p-1 hover-bg-red-50 rounded"><span
-                                                    class="material-symbols-outlined">delete</span></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <!-- Monitor Dell -->
-                                <tr>
-                                    <td class="py-4 px-4">
-                                        <div class="d-flex align-items-center gap-3"><img class="table-img"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBLJvNidhlvp1YsM2EkdvsZtBgEqzmy1VFOCLYSJ-e50A3g-nbdzdPRiSe6bNgbdTPiLYLLTpvgdpmezdBF44N6_u6RTcfcnGTqZW8eOpnih11VbqSI6gUznjNOHDXruvZkvS3lsiJENhSCLxd0zMik56_qgqaG2PqRAi6Vo8QWWZoGsUTJIF6IMiawEOCkP1qu-w3GlgRdb6b44nmbomC9j979BCkJA9XNLh89FfoD50qnaZwSJATrJm3z9THX_qYDWui1TEr2Vg"
-                                                alt="Monitor">
-                                            <div>
-                                                <p class="fw-bold mb-0">Monitor Dell UltraSharp 27"</p>
-                                                <p class="text-slate-400 small mb-0">ID: OL-MO-1182</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge-peripheral badge-laptop"
-                                            style="background:#f3e8ff; color:#6b21a8;">Periféricos</span></td>
-                                    <td>
-                                        <div class="d-flex align-items-center gap-2"><span
-                                                class="status-dot status-dot-secondary"></span><span
-                                                class="small fw-bold text-secondary">Ocupado</span></div>
-                                    </td>
-                                    <td class="text-center"><span class="fw-bold">0</span><br><span
-                                            class="text-slate-400 small">En uso</span></td>
-                                    <td class="text-end">
-                                        <div class="d-flex gap-2 justify-content-end"><button
-                                                class="btn p-1"><span
-                                                    class="material-symbols-outlined">edit</span></button><button
-                                                class="btn p-1"><span
-                                                    class="material-symbols-outlined">delete</span></button></div>
-                                    </td>
-                                </tr>
-                                <!-- iPad Pro -->
-                                <tr>
-                                    <td class="py-4 px-4">
-                                        <div class="d-flex align-items-center gap-3"><img class="table-img"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr5rDhy8RhjqyaXhMvVz08kInhSXjwszSexTc6kSZwzFGGkxEinDkV14z6yK39mT_JX_C3XQmieuVEGRNElh8uz30Zp5iTUjnmtdhHURD44uUiteA4R2DF45Hz1uiZWV3BFpOGl7skM0GAuL4dPUM2AoZKkgCCTlM-rGXPNp0roi3Xmdm-vi9HTqROAhJ85ykI8h2T0ewRxSLr0sC10Uvvq75nA0KcZ_P-8wqAdrNG6JJws9btt1B0fcv6gofHsM89CC-LFLU_9tY"
-                                                alt="iPad">
-                                            <div>
-                                                <p class="fw-bold mb-0">iPad Pro 12.9" + Pencil</p>
-                                                <p class="text-slate-400 small">ID: OL-TB-2290</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge-tablet badge-laptop">Tablets</span></td>
-                                    <td>
-                                        <div class="d-flex gap-2"><span class="status-dot status-dot-slate"></span><span
-                                                class="small fw-bold text-slate-500">Mantenimiento</span></div>
-                                    </td>
-                                    <td class="text-center"><span class="fw-bold">2</span><br><span
-                                            class="small text-slate-400">Taller</span></td>
-                                    <td class="text-end">
-                                        <div class="d-flex justify-content-end gap-2"><button class="btn p-1"><span
-                                                    class="material-symbols-outlined">edit</span></button><button
-                                                class="btn p-1"><span
-                                                    class="material-symbols-outlined">delete</span></button></div>
-                                    </td>
-                                </tr>
-                                <!-- Silla Aeron -->
-                                <tr>
-                                    <td class="py-4 px-4">
-                                        <div class="d-flex align-items-center gap-3"><img class="table-img"
-                                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1OZdTFYsCusq4Zx0Vhc2iuWO-inagnLJQYEQu9uLmcBrlkCw2cgNxaQNo74msoT9ljq5yU7nhDGwKKXwM0UtEKZc5CcC1NjeLTjDk27gaMbqjCKj92JAwR8PT570uwmhjQqsr7I5anhEoQPilbZtpyFTQAqIVCh0YJxfjPyQAqbCStDOJOOCIP1UVTlbVR5B1P5_6Y6VRa2_EJbr6xMJlMfQ28PTXtR1zSgF0nb7aznfOutgE1x_QGtvfnQ7kiLv-x-2wenH-MDI"
-                                                alt="chair">
-                                            <div>
-                                                <p class="fw-bold mb-0">Silla Aeron Herman Miller</p>
-                                                <p class="text-slate-400 small">ID: OL-FU-0012</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge-furniture badge-laptop"
-                                            style="background:#fffbeb; color:#b45309;">Mobiliario</span></td>
-                                    <td>
-                                        <div class="d-flex gap-2"><span class="status-dot status-dot-green"></span><span
-                                                class="small fw-bold text-green-700">Disponible</span></div>
-                                    </td>
-                                    <td class="text-center"><span class="fw-bold">45</span><br><span
-                                            class="small text-slate-400">Unidades</span></td>
-                                    <td class="text-end">
-                                        <div class="d-flex justify-content-end gap-2"><button class="btn p-1"><span
-                                                    class="material-symbols-outlined">edit</span></button><button
-                                                class="btn p-1"><span
-                                                    class="material-symbols-outlined">delete</span></button></div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- Pagination -->
-                    <div class="px-4 py-3 bg-slate-50 d-flex flex-wrap justify-content-between align-items-center">
-                        <p class="text-slate-500 small mb-0">Mostrando <strong>1 - 4</strong> de <strong>1,248</strong>
-                            equipos</p>
-                        <div class="d-flex gap-2">
-                            <button class="btn btn-light border rounded disabled opacity-50"><span
-                                    class="material-symbols-outlined">chevron_left</span></button>
-                            <button class="btn btn-custom-primary rounded px-3 py-1 fw-bold">1</button>
-                            <button class="btn btn-light border rounded px-3 py-1">2</button>
-                            <button class="btn btn-light border rounded px-3 py-1">3</button>
-                            <button class="btn btn-light border rounded"><span
-                                    class="material-symbols-outlined">chevron_right</span></button>
+                <div class="col-lg-4">
+                    <div class="bg-surface-container-lowest p-4 rounded-2xl shadow-sm">
+                        <h3 class="fw-bold text-slate-800 fs-1-3rem d-flex align-items-center gap-2 mb-3">
+                            <span class="material-symbols-outlined ">filter_list</span> Filtros de Vista
+                        </h3>
+                        <div class="mb-3">
+                            <label class="text-uppercase text-slate-400 fw-bold">Categoría</label>
+                            <select class="form-select mt-3 py-2 px-3 rounded-lg">
+                                <option>Todas las categorías</option>
+                                <option>Laptops</option>
+                                <option>Periféricos</option>
+                                <option>Mobiliario</option>
+                            </select>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Lend-Track custom component (progress) -->
-                <div class="shadow-xl bg-surface-container-lowest p-4 p-lg-5 rounded-3xl">
-                    <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-                        <div>
-                            <h3 class="fw-bold text-primary mb-1">Estado de Renovación Anual</h3>
-                            <p class="text-slate-500 small mb-0">Progreso de actualización de flota para el próximo
-                                ciclo académico.</p>
+                        <div class="d-flex flex-wrap gap-2 pt-2">
+                            <button class="btn btn-custom-primary rounded-pill px-3 py-1">Todos</button>
+                            <button class="btn bg-slate-100 text-slate-600 rounded-pill px-3 py-1">Disponibles</button>
+                            <button class="btn bg-slate-100 text-slate-600 rounded-pill px-3 py-1">Ocupados</button>
                         </div>
-                        <div class="text-end">
-                            <p class="display-6 fw-black text-primary mb-0">64%</p>
-                            <p class="text-secondary fw-bold text-uppercase" style="font-size: 0.6rem;">Objetivo Q4</p>
-                        </div>
-                    </div>
-                    <div class="progress-custom w-100 mb-2">
-                        <div class="progress-fill"></div>
-                    </div>
-                    <div class="d-flex justify-content-between small text-slate-400 fw-bold text-uppercase">
-                        <span>Iniciado: Enero</span>
-                        <span class="text-primary">Actual: Octubre</span>
-                        <span>Meta: Diciembre</span>
                     </div>
                 </div>
             </div>
+
+            <!-- Inventory Table Area -->
+            <div class="bg-surface-container-lowest rounded-3xl shadow-xl overflow-hidden">
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle w-100 mb-0">
+                        <thead class="bg-slate-50/50">
+                            <tr>
+                                <th class="text-uppercase text-slate-400 fw-bold">Equipo e Identificación</th>
+                                <th class="text-uppercase text-slate-400 fw-bold"> Categoría</th>
+                                <th class="text-uppercase text-slate-400 fw-bold">Estado </th>
+                                <th class="text-uppercase text-slate-400 fw-bold text-center">Stock</th>
+                                <th class="text-uppercase text-slate-400 fw-bold text-end">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y">
+                            <!-- MacBook Pro -->
+                            <tr class="group transition-colors hover-bg-light">
+                                <td class="py-4 px-4">
+                                    <div class="d-flex align-items-center gap-3">
+                                        <img class="table-img"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBNzzBzg08f0qDr_phQbhQZMRs8GQ2p7DJPJU1A7KduNlR-qk-8oUJEWTwFbaLSW_ZzRydb0ycuOyyDY4TiZsxw6DsY5mGmvVrQTY0Ky87xruEYCv4Y0VbSZoWF2RiuxRNFaWsp2whw81-q2V21ElEJOSTMsV-2BbAjM_PaESrHWXwNhGc40iJ5PDNLpdqs2CEFEdOL5v0-S_fq_ZZyd7UTC2Ku4_R5KbFSGQt1unGRDUiaQvM2ppTcJ0E6anToRElwWxYVPjPyqPk"
+                                            alt="MacBook">
+                                        <div>
+                                            <p class="fw-bold text-slate-900 mb-0">MacBook Pro 14" M2</p>
+                                            <p class="text-slate-400 font-monospace small mb-0">ID: OL-LT-0429</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-laptop">Laptops</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2"><span
+                                            class="status-dot status-dot-green animate-pulse"></span><span
+                                            class="small fw-bold text-green-700">Disponible</span></div>
+                                </td>
+                                <td class="text-center"><span class="fw-bold text-slate-900">12</span><br><span
+                                        class="text-slate-400" style="font-size: 0.6rem;">Unidades</span></td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2">
+                                        <button class="btn p-1 hover-bg-primary/5 rounded"><span
+                                                class="material-symbols-outlined">edit</span></button>
+                                        <button class="btn p-1 hover-bg-red-50 rounded"><span
+                                                class="material-symbols-outlined">delete</span></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <!-- Monitor Dell -->
+                            <tr>
+                                <td class="py-4 px-4">
+                                    <div class="d-flex align-items-center gap-3"><img class="table-img"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBLJvNidhlvp1YsM2EkdvsZtBgEqzmy1VFOCLYSJ-e50A3g-nbdzdPRiSe6bNgbdTPiLYLLTpvgdpmezdBF44N6_u6RTcfcnGTqZW8eOpnih11VbqSI6gUznjNOHDXruvZkvS3lsiJENhSCLxd0zMik56_qgqaG2PqRAi6Vo8QWWZoGsUTJIF6IMiawEOCkP1qu-w3GlgRdb6b44nmbomC9j979BCkJA9XNLh89FfoD50qnaZwSJATrJm3z9THX_qYDWui1TEr2Vg"
+                                            alt="Monitor">
+                                        <div>
+                                            <p class="fw-bold mb-0">Monitor Dell UltraSharp 27"</p>
+                                            <p class="text-slate-400 small mb-0">ID: OL-MO-1182</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-peripheral badge-laptop"
+                                        style="background:#f3e8ff; color:#6b21a8;">Periféricos</span></td>
+                                <td>
+                                    <div class="d-flex align-items-center gap-2"><span
+                                            class="status-dot status-dot-secondary"></span><span
+                                            class="small fw-bold text-secondary">Ocupado</span></div>
+                                </td>
+                                <td class="text-center"><span class="fw-bold">0</span><br><span
+                                        class="text-slate-400 small">En uso</span></td>
+                                <td class="text-end">
+                                    <div class="d-flex gap-2 justify-content-end"><button class="btn p-1"><span
+                                                class="material-symbols-outlined">edit</span></button><button
+                                            class="btn p-1"><span
+                                                class="material-symbols-outlined">delete</span></button></div>
+                                </td>
+                            </tr>
+                            <!-- iPad Pro -->
+                            <tr>
+                                <td class="py-4 px-4">
+                                    <div class="d-flex align-items-center gap-3"><img class="table-img"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBr5rDhy8RhjqyaXhMvVz08kInhSXjwszSexTc6kSZwzFGGkxEinDkV14z6yK39mT_JX_C3XQmieuVEGRNElh8uz30Zp5iTUjnmtdhHURD44uUiteA4R2DF45Hz1uiZWV3BFpOGl7skM0GAuL4dPUM2AoZKkgCCTlM-rGXPNp0roi3Xmdm-vi9HTqROAhJ85ykI8h2T0ewRxSLr0sC10Uvvq75nA0KcZ_P-8wqAdrNG6JJws9btt1B0fcv6gofHsM89CC-LFLU_9tY"
+                                            alt="iPad">
+                                        <div>
+                                            <p class="fw-bold mb-0">iPad Pro 12.9" + Pencil</p>
+                                            <p class="text-slate-400 small">ID: OL-TB-2290</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-tablet badge-laptop">Tablets</span></td>
+                                <td>
+                                    <div class="d-flex gap-2"><span class="status-dot status-dot-slate"></span><span
+                                            class="small fw-bold text-slate-500">Mantenimiento</span></div>
+                                </td>
+                                <td class="text-center"><span class="fw-bold">2</span><br><span
+                                        class="small text-slate-400">Taller</span></td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2"><button class="btn p-1"><span
+                                                class="material-symbols-outlined">edit</span></button><button
+                                            class="btn p-1"><span
+                                                class="material-symbols-outlined">delete</span></button></div>
+                                </td>
+                            </tr>
+                            <!-- Silla Aeron -->
+                            <tr>
+                                <td class="py-4 px-4">
+                                    <div class="d-flex align-items-center gap-3"><img class="table-img"
+                                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB1OZdTFYsCusq4Zx0Vhc2iuWO-inagnLJQYEQu9uLmcBrlkCw2cgNxaQNo74msoT9ljq5yU7nhDGwKKXwM0UtEKZc5CcC1NjeLTjDk27gaMbqjCKj92JAwR8PT570uwmhjQqsr7I5anhEoQPilbZtpyFTQAqIVCh0YJxfjPyQAqbCStDOJOOCIP1UVTlbVR5B1P5_6Y6VRa2_EJbr6xMJlMfQ28PTXtR1zSgF0nb7aznfOutgE1x_QGtvfnQ7kiLv-x-2wenH-MDI"
+                                            alt="chair">
+                                        <div>
+                                            <p class="fw-bold mb-0">Silla Aeron Herman Miller</p>
+                                            <p class="text-slate-400 small">ID: OL-FU-0012</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge-furniture badge-laptop"
+                                        style="background:#fffbeb; color:#b45309;">Mobiliario</span></td>
+                                <td>
+                                    <div class="d-flex gap-2"><span class="status-dot status-dot-green"></span><span
+                                            class="small fw-bold text-green-700">Disponible</span></div>
+                                </td>
+                                <td class="text-center"><span class="fw-bold">45</span><br><span
+                                        class="small text-slate-400">Unidades</span></td>
+                                <td class="text-end">
+                                    <div class="d-flex justify-content-end gap-2"><button class="btn p-1"><span
+                                                class="material-symbols-outlined">edit</span></button><button
+                                            class="btn p-1"><span
+                                                class="material-symbols-outlined">delete</span></button></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="px-4 py-3 bg-slate-50 d-flex flex-wrap justify-content-between align-items-center">
+                    <p class="text-slate-500 small mb-0">Mostrando <strong>1 - 4</strong> de <strong>1,248</strong>
+                        equipos</p>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-light border rounded disabled opacity-50"><span
+                                class="material-symbols-outlined">chevron_left</span></button>
+                        <button class="btn btn-custom-primary rounded px-3 py-1 fw-bold">1</button>
+                        <button class="btn btn-light border rounded px-3 py-1">2</button>
+                        <button class="btn btn-light border rounded px-3 py-1">3</button>
+                        <button class="btn btn-light border rounded"><span
+                                class="material-symbols-outlined">chevron_right</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lend-Track custom component (progress) -->
+            <div class="shadow-xl bg-surface-container-lowest p-4 p-lg-5 rounded-3xl">
+                <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+                    <div>
+                        <h3 class="fw-bold text-primary mb-1">Estado de Renovación Anual</h3>
+                        <p class="text-slate-500 small mb-0">Progreso de actualización de flota para el próximo
+                            ciclo académico.</p>
+                    </div>
+                    <div class="text-end">
+                        <p class="display-6 fw-black text-primary mb-0">64%</p>
+                        <p class="text-secondary fw-bold text-uppercase" style="font-size: 0.6rem;">Objetivo Q4</p>
+                    </div>
+                </div>
+                <div class="progress-custom w-100 mb-2">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="d-flex justify-content-between small text-slate-400 fw-bold text-uppercase">
+                    <span>Iniciado: Enero</span>
+                    <span class="text-primary">Actual: Octubre</span>
+                    <span>Meta: Diciembre</span>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Bootstrap JS (optional for interactivity but not mandatory) -->

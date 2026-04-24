@@ -36,6 +36,10 @@ h1, h2, h3, .brand-font {
     font-family: 'Manrope', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 
 .font-headline {
     font-family: 'Manrope', sans-serif;
@@ -85,6 +89,10 @@ main {
     max-width: 640px;
     line-height: 1.7;
     margin: 0px;
+}
+
+.nav-link {
+    font-size: 1.1rem;
 }
 
 .nav-link.active {

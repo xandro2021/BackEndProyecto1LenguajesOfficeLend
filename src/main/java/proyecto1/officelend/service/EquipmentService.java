@@ -39,7 +39,7 @@ public class EquipmentService {
             updatedEquipment.setType(equipment.getType());
             updatedEquipment.setDescription(equipment.getDescription());
             updatedEquipment.setStock(equipment.getStock());
-            updatedEquipment.setStatus(equipment.isStatus());
+            updatedEquipment.setStatus(equipment.getStatus());
             return equipmentRepository.save(updatedEquipment);
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found");

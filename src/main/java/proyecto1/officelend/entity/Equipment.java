@@ -2,7 +2,6 @@ package proyecto1.officelend.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -19,19 +18,24 @@ public class Equipment {
   @Column(nullable = false)
   private String type;
 
-  @Column(nullable = false)
+  @Column(columnDefinition = "TEXT")
   private String description;
 
   @Column(nullable = false)
   private int stock;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private boolean status;
+  private EquipmentStatus status;
+
+  @Column // ← solo guarda el nombre del archivo, ej: "equipment_1234567890.jpg"
+  private String imageFilename;
 
   @OneToMany(mappedBy = "equipment")
   private List<Loan> loans = new ArrayList<>();
 
-  public Equipment() {}
+  public Equipment() {
+  }
 
   public int getId() {
     return id;
@@ -73,12 +77,20 @@ public class Equipment {
     this.stock = stock;
   }
 
-  public boolean isStatus() {
+  public EquipmentStatus getStatus() {
     return status;
   }
 
-  public void setStatus(boolean status) {
+  public void setStatus(EquipmentStatus status) {
     this.status = status;
+  }
+
+  public String getImageFilename() {
+    return imageFilename;
+  }
+
+  public void setImageFilename(String imageFilename) {
+    this.imageFilename = imageFilename;
   }
 
   public List<Loan> getLoans() {
@@ -88,5 +100,4 @@ public class Equipment {
   public void setLoans(List<Loan> loans) {
     this.loans = loans;
   }
-
 }

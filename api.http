@@ -9,7 +9,7 @@
 ### ========================================
 
 @baseUrl = http://localhost:8080
-@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlhdCI6MTc3Njk3NjE0MSwiZXhwIjoxNzc2OTc5NzQxfQ.AkLHZD4JJV_GVOIY660oIpe6Yf3OSBROyucXGFcWvho
+@token = eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzc3MDU4Njk1LCJleHAiOjE3NzcwNjIyOTV9.O1Epdo6XgEjtrjPgWcRfzKg64tJKNZV4VVnG1yX7HG0
 
 
 ### ========================================
@@ -59,26 +59,26 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-  "name": "Proyector Samsung2",
-  "type": "Electronica",
-  "description": "Proyecto de 50 pulgadas para poder transmitir la pantalla a una audiencia",
-  "stock": 7,
-  "status": true
+  "name": "Laptop Dell XPS",
+  "type": "Laptop",
+  "description": "Laptop de alto rendimiento",
+  "stock": 5,
+  "status": "DISPONIBLE"
 }
 
 ###
 
 ### Actualizar equipo por ID
-PUT {{baseUrl}}/equipment/3
+PUT {{baseUrl}}/equipment/2
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
   "name": "Laptop Mini Thinkpad 2in1 12",
-  "type": "Computadora",
+  "type": "Laptop",
   "description": "Laptop actualizada con más RAM",
   "stock": 7,
-  "status": true
+  "status": "DISPONIBLE"
 }
 
 ###

@@ -2,10 +2,7 @@ package proyecto1.officelend.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -22,7 +19,14 @@ public class ViewAdminController {
   }
 
   @GetMapping("/catalogo/nuevo")
-  public String agregarEquipo() {
+  public String agregarEquipo(Model model) {
+    model.addAttribute("modo", "agregar");
+    return "admin/agregarItemAdmin";
+  }
+
+  @GetMapping("/catalogo/editar/{id}")
+  public String editarEquipo(Model model) {
+    model.addAttribute("modo", "editar");
     return "admin/agregarItemAdmin";
   }
 
@@ -32,9 +36,7 @@ public class ViewAdminController {
   }
 
   @GetMapping("/prestamos/detalle/{id}")
-  public String verDetallePrestamo(@PathVariable int id, Model model) {
-    model.addAttribute("prestamoId", id);
+  public String verDetallePrestamo() {
     return "admin/verSolicitudAdmin";
   }
-
 }

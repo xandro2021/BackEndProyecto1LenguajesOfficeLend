@@ -1,1 +1,98 @@
-Esto es un archivo para probar github
+❯ tree -I 'target'
+.
+├── api.http
+├── archivoPrueba.txt
+├── HELP.md
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+├── src
+│   ├── main
+│   │   ├── java
+│   │   │   └── proyecto1
+│   │   │       └── officelend
+│   │   │           ├── config
+│   │   │           │   ├── CorsConfig.java
+│   │   │           │   ├── DataLoader.java
+│   │   │           │   ├── OpenApiConfig.java
+│   │   │           │   └── WebConfig.java
+│   │   │           ├── controller
+│   │   │           │   ├── AuthController.java
+│   │   │           │   ├── EquipmentController.java
+│   │   │           │   ├── LoanController.java
+│   │   │           │   ├── UserController.java
+│   │   │           │   ├── ViewAdminController.java
+│   │   │           │   ├── ViewLoginController.java
+│   │   │           │   └── ViewUserController.java
+│   │   │           ├── dto
+│   │   │           │   ├── AuthResponse.java
+│   │   │           │   └── LoginRequest.java
+│   │   │           ├── entity
+│   │   │           │   ├── Equipment.java
+│   │   │           │   ├── EquipmentStatus.java
+│   │   │           │   ├── Loan.java
+│   │   │           │   └── User.java
+│   │   │           ├── OfficelendApplication.java
+│   │   │           ├── repository
+│   │   │           │   ├── EquipmentRepository.java
+│   │   │           │   ├── LoanRepository.java
+│   │   │           │   └── UserRepository.java
+│   │   │           ├── security
+│   │   │           │   ├── JwtRequestFilter.java
+│   │   │           │   ├── JwtUtil.java
+│   │   │           │   └── SecurityConfig.java
+│   │   │           └── service
+│   │   │               ├── EquipmentImageService.java
+│   │   │               ├── EquipmentService.java
+│   │   │               ├── LoanService.java
+│   │   │               ├── UserDetailsServiceImpl.java
+│   │   │               └── UserService.java
+│   │   └── resources
+│   │       ├── application.properties
+│   │       ├── static
+│   │       │   ├── css
+│   │       │   │   ├── admin
+│   │       │   │   │   ├── agregarItemAdmin.css
+│   │       │   │   │   ├── catalogoAdmin.css
+│   │       │   │   │   ├── dashboardAdmin.css
+│   │       │   │   │   ├── gestionPrestamosAdmin.css
+│   │       │   │   │   └── verSolicitudAdmin.css
+│   │       │   │   ├── login.css
+│   │       │   │   └── user
+│   │       │   │       ├── catalogoUserStyles.css
+│   │       │   │       ├── historialSolicitudesUser.css
+│   │       │   │       └── solicitudPrestamoUser.css
+│   │       │   ├── img
+│   │       │   │   └── logo.png
+│   │       │   └── js
+│   │       │       ├── admin
+│   │       │       │   ├── adminGuard.js
+│   │       │       │   ├── agregarItemAdmin.js
+│   │       │       │   ├── catalogoAdmin.js
+│   │       │       │   └── editarItemAdmin.js
+│   │       │       ├── login.js
+│   │       │       └── usuario
+│   │       │           └── userGuard.js
+│   │       └── templates
+│   │           ├── admin
+│   │           │   ├── agregarItemAdmin.html
+│   │           │   ├── catalogoAdmin.html
+│   │           │   ├── dashboardAdmin.html
+│   │           │   ├── gestionPrestamosAdmin.html
+│   │           │   └── verSolicitudAdmin.html
+│   │           ├── index.html
+│   │           └── usuario
+│   │               ├── catalogoUser.html
+│   │               ├── historialSolicitudesUser.html
+│   │               ├── solicitudPrestamoUser.html
+│   │               └── verSolicitudUser.html
+│   └── test
+│       └── java
+│           └── proyecto1
+│               └── officelend
+│                   └── OfficelendApplicationTests.java
+└── uploads
+    └── equipment
+        └── 696680c1-6a78-4126-9f3c-6152e3d62189_1777131759889.jpg
+
+31 directories, 64 files

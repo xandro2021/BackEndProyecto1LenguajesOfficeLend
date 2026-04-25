@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class ViewUserController {
 
-    @GetMapping("/user/catalogo")
+    @GetMapping("/catalogo")
     public String userCatalogo() {
         return "usuario/catalogoUser";
     }
@@ -21,11 +21,6 @@ public class ViewUserController {
     @GetMapping("/solicitud")
     public String userSolicitud() {
         return "usuario/solicitudPrestamoUser";
-    }
-
-    @GetMapping("/index")
-    public String userIndex() {
-        return "usuario/index";
     }
 
 }

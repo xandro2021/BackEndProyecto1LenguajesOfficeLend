@@ -16,8 +16,4 @@ public class ViewLoginController {
     return "index";
   }
 
-  @GetMapping("/user/catalogo")
-  public String userCatalogo() {
-    return "usuario/catalogoUser";
-  }
 }

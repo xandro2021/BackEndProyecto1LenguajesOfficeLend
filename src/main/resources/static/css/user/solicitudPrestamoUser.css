@@ -37,6 +37,10 @@ body {
     font-family: 'Manrope', sans-serif;
 }
 
+a {
+    text-decoration: none;
+}
+
 .h-8 {
     height: 2rem;
 }
@@ -280,6 +284,9 @@ main {
     padding: 0.9rem 2.4rem;
     transition: background 0.2s;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .btn-cancel:hover { background: var(--surface-container-high); }
 
@@ -332,3 +339,4 @@ main {
 
 /* ── Form spacing ── */
 .form-block + .form-block { margin-top: 2.5rem; }
+

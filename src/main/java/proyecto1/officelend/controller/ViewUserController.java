@@ -8,19 +8,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class ViewUserController {
 
-    @GetMapping("/catalogo")
-    public String userCatalogo() {
-        return "usuario/catalogoUser";
-    }
+  @GetMapping("/catalogo")
+  public String userCatalogo() {
+    return "usuario/catalogoUser";
+  }
 
-    @GetMapping("/historial")
-    public String userHistorial() {
-        return "usuario/historialSolicitudesUser";
-    }
+  @GetMapping("/catalogo/solicitud/{id}")
+  public String userSolicitud() {
+    return "usuario/solicitudPrestamoUser";
+  }
 
-    @GetMapping("/solicitud")
-    public String userSolicitud() {
-        return "usuario/solicitudPrestamoUser";
-    }
+  @GetMapping("/prestamos")
+  public String userHistorial() {
+    return "usuario/historialSolicitudesUser";
+  }
+
+  @GetMapping("/prestamos/detalle/{id}")
+  public String detalleSolicitud() {
+    return "usuario/verSolicitudUser";
+  }
 
 }

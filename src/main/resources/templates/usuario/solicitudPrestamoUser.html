@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
     <!-- Material Symbols -->
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/user/solicitudPrestamoUser.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/css/user/solicitudPrestamoUser.css" type="text/css" media="screen" />
 </head>
 
 <body>
@@ -22,15 +22,15 @@
                 <!-- Logo -->
                 <div class="d-flex align-items-center gap-2">
                     <img alt="OfficeLend Logo" class="h-10 w-10 rounded-3"
-                        src="../img/logo.png">
+                        src="/img/logo.png">
                     <span class="fs-3 fw-bold text-custom-primary font-headline tracking-tight">OfficeLend</span>
                 </div>
 
                 <!-- Navegación desktop -->
                 <nav class="d-none d-md-flex gap-4">
                     <a class="nav-link text-custom-primary " href="#">Dashboard</a>
-                    <a class="nav-link text-custom-primary " href="catalogoUser.html">Equipos</a>
-                    <a class="nav-link active text-custom-primary " href="historialSolicitudesUser.html">Préstamos</a>
+                    <a class="nav-link text-custom-primary " href="/user/catalogo">Equipos</a>
+                    <a class="nav-link active text-custom-primary " href="/user/prestamos">Préstamos</a>
                     <a class="nav-link text-custom-primary " href="#">Reportes</a>
                 </nav>
 
@@ -146,7 +146,7 @@
                         <!-- Actions -->
                         <div class="form-block d-flex flex-column flex-md-row-reverse align-items-center gap-3 pt-2">
                             <button type="submit" class="btn-submit w-100 w-md-auto">Enviar Solicitud</button>
-                            <button type="button" class="btn-cancel w-100 w-md-auto">Cancelar</button>
+                            <a class="btn-cancel w-100 w-md-auto" href="/user/catalogo">Cancelar</a>
                         </div>
 
                     </form>

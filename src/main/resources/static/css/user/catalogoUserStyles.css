@@ -2,6 +2,7 @@
     --primary: #00236f;
     --primary-container: #1e3a8a;
     --on-primary: #ffffff;
+    --color-primary:              #00236f;
 
     --secondary-container: #F59E0B;
 
@@ -11,7 +12,10 @@
     --surface-container-highest: #e0e3e5;
 
     --on-surface: #191c1e;
+    --color-on-surface:           #191c1e;
     --on-surface-variant: #444651;
+    --color-on-surface-variant:   #444651;
+    --color-surface-container-low:    #f2f4f6;
 
     --outline: #757682;
     --outline-variant: #c5c5d3;
@@ -31,7 +35,33 @@ body {
 
 a {
     color: var(--primary);
+    text-decoration: none;
 }
+
+.btn-card--solicitado {
+    text-decoration: none;
+    background: rgba(0,35,111,0.1);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.btn-card--disponible {
+    text-decoration: none;
+    background-color: var(--secondary-container);
+    color: var(--on-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.btn-card--mantenimiento {
+    
+}
+
 
 .text-custom-primary {
     color: var(--primary);
@@ -274,3 +304,26 @@ a {
 .badge-disponible { background-color: #d1fae5; color: #065f46; }
 .badge-solicitud { background-color: #fef3c7; color: #92400e; }
 .badge-mantenimiento { background-color: #e2e8f0; color: #334155; }
+
+/* ── Pagination ── */
+.page-info { font-size: 0.875rem; color: var(--color-on-surface-variant); }
+
+.pag-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: 1px solid rgba(197, 197, 211, 0.2);
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--color-on-surface);
+    cursor: pointer;
+    transition: background 0.2s;
+    text-decoration: none;
+}
+
+.pag-btn:hover { background: var(--color-surface-container-low); color: var(--color-on-surface); }
+.pag-btn.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+.pag-btn.icon-btn { border: 1px solid rgba(197, 197, 211, 0.2); }

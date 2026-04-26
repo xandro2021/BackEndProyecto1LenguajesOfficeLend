@@ -2,6 +2,8 @@ package proyecto1.officelend.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -28,6 +30,7 @@ public class User {
   private String fullName;
 
   @OneToMany(mappedBy = "user")
+  @JsonManagedReference
   private List<Loan> loans;
 
   public User() {

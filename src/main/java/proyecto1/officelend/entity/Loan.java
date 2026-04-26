@@ -1,6 +1,9 @@
 package proyecto1.officelend.entity;
 
 import java.time.LocalDate;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -33,10 +36,12 @@ public class Loan {
 
   @ManyToOne
   @JoinColumn(name = "equipment_id")
+  @JsonBackReference
   private Equipment equipment;
 
   @ManyToOne
   @JoinColumn(name = "user_id")
+  @JsonBackReference
   private User user;
 
   public Loan() {

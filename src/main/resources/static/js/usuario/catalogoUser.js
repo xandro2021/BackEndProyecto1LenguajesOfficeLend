@@ -16,6 +16,11 @@ async function loadEquipments() {
             }
         });
 
+
+        if (res.status === 401 || res.status === 403) {
+            window.location.href = '/';
+        }
+
         if (!res.ok) throw new Error("Error al cargar equipos");
 
         equipments = await res.json();

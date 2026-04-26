@@ -1,3 +1,6 @@
+console.log('token:', localStorage.getItem('jwt'));
+console.log('role:', localStorage.getItem('role'));
+
 const token = localStorage.getItem('jwt');
 const role = localStorage.getItem('role');
 

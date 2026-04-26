@@ -1,4 +1,5 @@
 package proyecto1.officelend.service;
+
 import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
@@ -6,43 +7,57 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 import proyecto1.officelend.repository.EquipmentRepository;
 import proyecto1.officelend.entity.Equipment;
+import proyecto1.officelend.entity.EquipmentStatus;
 
 @Service
 public class EquipmentService {
-    private EquipmentRepository equipmentRepository;
+  private EquipmentRepository equipmentRepository;
 
-    public EquipmentService(EquipmentRepository equipmentRepository) {
-        this.equipmentRepository = equipmentRepository;
+  public EquipmentService(EquipmentRepository equipmentRepository) {
+    this.equipmentRepository = equipmentRepository;
+  }
+
+  public Equipment registerEquipment(Equipment equipment) {
+    applyBusinessRules(equipment);
+    return equipmentRepository.save(equipment);
+  }
+
+  public List<Equipment> getEquipments() {
+    return equipmentRepository.findAll();
+  }
+
+  public Optional<Equipment> getEquipmentById(int id) {
+    return equipmentRepository.findById(id);
+  }
+
+  public void deleteEquipment(int id) {
+    equipmentRepository.deleteById(id);
+  }
+
+  public Equipment updateEquipment(int id, Equipment newData) {
+    Equipment existing = equipmentRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
+
+    existing.setName(newData.getName());
+    existing.setType(newData.getType());
+    existing.setDescription(newData.getDescription());
+    existing.setStock(newData.getStock());
+
+    if (newData.getImageFilename() != null) {
+      existing.setImageFilename(newData.getImageFilename());
     }
 
-    public Equipment registerEquipment(Equipment equipment) {
-        return equipmentRepository.save(equipment);
-    }
+    existing.setStatus(newData.getStatus());
+    applyBusinessRules(existing);
 
-    public List<Equipment> getEquipments() {
-        return equipmentRepository.findAll();
-    }
+    return equipmentRepository.save(existing);
+  }
 
-    public Optional<Equipment> getEquipmentById(int id) {
-        return equipmentRepository.findById(id);
+  private void applyBusinessRules(Equipment equipment) {
+    if (equipment.getStock() <= 0) {
+      equipment.setStatus(EquipmentStatus.OCUPADO);
+    } else if (equipment.getStatus() != EquipmentStatus.MANTENIMIENTO) {
+      equipment.setStatus(EquipmentStatus.DISPONIBLE);
     }
-
-    public void deleteEquipment(int id) {
-        equipmentRepository.deleteById(id);
-    }
-
-    public Equipment updateEquipment(int id, Equipment equipment) {
-        Optional<Equipment> existingEquipment = equipmentRepository.findById(id);
-        if (existingEquipment.isPresent()) {
-            Equipment updatedEquipment = existingEquipment.get();
-            updatedEquipment.setName(equipment.getName());
-            updatedEquipment.setType(equipment.getType());
-            updatedEquipment.setDescription(equipment.getDescription());
-            updatedEquipment.setStock(equipment.getStock());
-            updatedEquipment.setStatus(equipment.getStatus());
-            return equipmentRepository.save(updatedEquipment);
-        } else {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found");
-        }
-    }
+  }
 }

@@ -60,12 +60,10 @@ public class EquipmentController {
     equipment.setType(type);
     equipment.setDescription(description);
     equipment.setStock(stock);
-    // equipment.setStatus(Enum.valueOf(EquipmentStatus.class, status));
-    equipment.setStatus(EquipmentStatus.valueOf(status.toUpperCase()));
-    // Guardar imagen si se proporciona
+    equipment.setStatus(parseStatus(status));
+
     if (image != null && !image.isEmpty()) {
-      String filename = imageService.saveImage(image);
-      equipment.setImageFilename(filename);
+      equipment.setImageFilename(imageService.saveImage(image));
     }
 
     return equipmentService.registerEquipment(equipment);
@@ -83,23 +81,22 @@ public class EquipmentController {
       @RequestParam String status,
       @RequestParam(required = false) MultipartFile image) throws IOException {
 
-    Equipment equipment = equipmentService.getEquipmentById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
+    Equipment equipment = new Equipment();
     equipment.setName(name);
     equipment.setType(type);
     equipment.setDescription(description);
     equipment.setStock(stock);
-    // equipment.setStatus(Enum.valueOf(EquipmentStatus.class, status));
-    equipment.setStatus(EquipmentStatus.valueOf(status.toUpperCase()));
+    equipment.setStatus(parseStatus(status));
 
-    // Si hay imagen nueva, eliminar la antigua y guardar la nueva
     if (image != null && !image.isEmpty()) {
-      if (equipment.getImageFilename() != null) {
-        imageService.deleteImage(equipment.getImageFilename());
+      Equipment existing = equipmentService.getEquipmentById(id)
+          .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+      if (existing.getImageFilename() != null) {
+        imageService.deleteImage(existing.getImageFilename());
       }
-      String filename = imageService.saveImage(image);
-      equipment.setImageFilename(filename);
+
+      equipment.setImageFilename(imageService.saveImage(image));
     }
 
     return equipmentService.updateEquipment(id, equipment);
@@ -118,5 +115,13 @@ public class EquipmentController {
     }
 
     equipmentService.deleteEquipment(id);
+  }
+
+  private EquipmentStatus parseStatus(String status) {
+    try {
+      return EquipmentStatus.valueOf(status.toUpperCase());
+    } catch (IllegalArgumentException e) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid status: " + status);
+    }
   }
 }

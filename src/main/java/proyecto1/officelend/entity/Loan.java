@@ -1,7 +1,6 @@
 package proyecto1.officelend.entity;
 
-import java.sql.Date;
-
+import java.time.LocalDate;
 import jakarta.persistence.*;
 
 @Entity
@@ -13,19 +12,24 @@ public class Loan {
   private int id;
 
   @Column(name = "request_date", nullable = false)
-  private Date requestDate;
+  private LocalDate requestDate;
 
   @Column(name = "start_date", nullable = false)
-  private Date startDate;
+  private LocalDate startDate;
 
   @Column(name = "estimated_end_date", nullable = false)
-  private Date estimatedEndDate;
+  private LocalDate estimatedEndDate;
 
-  @Column(name = "actual_return_date", nullable = false)
-  private Date actualReturnDate;
+  @Column(name = "actual_return_date")
+  private LocalDate actualReturnDate;
 
+  @Column(columnDefinition = "TEXT")
+  private String justification;
+
+  // Aprobado, Rechazado, Pendiente
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private boolean status;
+  private LoanStatus status;
 
   @ManyToOne
   @JoinColumn(name = "equipment_id")
@@ -35,7 +39,8 @@ public class Loan {
   @JoinColumn(name = "user_id")
   private User user;
 
-  public Loan() {}
+  public Loan() {
+  }
 
   public int getId() {
     return id;
@@ -45,43 +50,51 @@ public class Loan {
     this.id = id;
   }
 
-  public Date getRequestDate() {
+  public LocalDate getRequestDate() {
     return requestDate;
   }
 
-  public void setRequestDate(Date requestDate) {
+  public void setRequestDate(LocalDate requestDate) {
     this.requestDate = requestDate;
   }
 
-  public Date getStartDate() {
+  public LocalDate getStartDate() {
     return startDate;
   }
 
-  public void setStartDate(Date startDate) {
+  public void setStartDate(LocalDate startDate) {
     this.startDate = startDate;
   }
 
-  public Date getEstimatedEndDate() {
+  public LocalDate getEstimatedEndDate() {
     return estimatedEndDate;
   }
 
-  public void setEstimatedEndDate(Date estimatedEndDate) {
+  public void setEstimatedEndDate(LocalDate estimatedEndDate) {
     this.estimatedEndDate = estimatedEndDate;
   }
 
-  public Date getActualReturnDate() {
+  public LocalDate getActualReturnDate() {
     return actualReturnDate;
   }
 
-  public void setActualReturnDate(Date actualReturnDate) {
+  public void setActualReturnDate(LocalDate actualReturnDate) {
     this.actualReturnDate = actualReturnDate;
   }
 
-  public boolean isStatus() {
+  public String getJustification() {
+    return justification;
+  }
+
+  public void setJustification(String justification) {
+    this.justification = justification;
+  }
+
+  public LoanStatus getStatus() {
     return status;
   }
 
-  public void setStatus(boolean status) {
+  public void setStatus(LoanStatus status) {
     this.status = status;
   }
 
@@ -104,8 +117,8 @@ public class Loan {
   @Override
   public String toString() {
     return "Loan [id=" + id + ", requestDate=" + requestDate + ", startDate=" + startDate + ", estimatedEndDate="
-        + estimatedEndDate + ", actualReturnDate=" + actualReturnDate + ", status=" + status + ", equipment="
-        + equipment + ", user=" + user + "]";
+        + estimatedEndDate + ", actualReturnDate=" + actualReturnDate + ", justification=" + justification + ", status="
+        + status + ", equipment=" + equipment + ", user=" + user + "]";
   }
 
 }

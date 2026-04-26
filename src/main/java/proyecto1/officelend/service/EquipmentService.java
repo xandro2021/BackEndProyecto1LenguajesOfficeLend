@@ -36,7 +36,7 @@ public class EquipmentService {
 
   public Equipment updateEquipment(int id, Equipment newData) {
     Equipment existing = equipmentRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipment not found"));
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipo no encontrado"));
 
     existing.setName(newData.getName());
     existing.setType(newData.getType());

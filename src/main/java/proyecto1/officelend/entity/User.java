@@ -1,8 +1,9 @@
 package proyecto1.officelend.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -30,8 +31,8 @@ public class User {
   private String fullName;
 
   @OneToMany(mappedBy = "user")
-  @JsonManagedReference
-  private List<Loan> loans;
+  @JsonIgnore
+  private List<Loan> loans =  new ArrayList<>();
 
   public User() {
   }

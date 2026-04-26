@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+
 import proyecto1.officelend.entity.Loan;
 import proyecto1.officelend.entity.LoanStatus;
 import proyecto1.officelend.repository.LoanRepository;
@@ -36,8 +37,21 @@ public class LoanService {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "El equipo es requerido");
     }
 
-    equipmentService.getEquipmentById(loan.getEquipment().getId())
+    var equipment = equipmentService.getEquipmentById(loan.getEquipment().getId())
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Equipo no encontrado"));
+
+    if (equipment.getStock() <= 0) {
+      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sin stock");
+    }
+
+    // bajar stock, si llega a cero al guardarlo se aplica regla de negocio para
+    // cambiar su estado a ocupado
+    equipment.setStock(equipment.getStock() - 1);
+
+    // En este caso se actualizaria el equipo en vez de agregar uno nuevo debido
+    // al metodo save de repository, ademas de que hay validacion del stock sea
+    // menor a 0 para tener estatus ocupado
+    equipmentService.registerEquipment(equipment);
 
     loan.setStatus(LoanStatus.PENDIENTE);
     loan.setRequestDate(LocalDate.now());
@@ -48,6 +62,12 @@ public class LoanService {
 
   public List<Loan> getLoans() {
     return loanRepository.findAll();
+  }
+
+  public List<Loan> getLoansByCurrentUser() {
+    // Uso var para no importar la entidad
+    var user = userService.getCurrentUser();
+    return loanRepository.findByUserId(user.getId());
   }
 
   public Optional<Loan> getLoanById(int id) {

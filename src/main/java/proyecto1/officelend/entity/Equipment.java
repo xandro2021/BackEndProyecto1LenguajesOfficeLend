@@ -3,7 +3,7 @@ package proyecto1.officelend.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 
@@ -35,7 +35,7 @@ public class Equipment {
   private String imageFilename;
 
   @OneToMany(mappedBy = "equipment")
-  @JsonManagedReference
+  @JsonIgnore
   private List<Loan> loans = new ArrayList<>();
 
   public Equipment() {

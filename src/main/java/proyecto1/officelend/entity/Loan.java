@@ -2,8 +2,6 @@ package proyecto1.officelend.entity;
 
 import java.time.LocalDate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -29,19 +27,17 @@ public class Loan {
   @Column(columnDefinition = "TEXT")
   private String justification;
 
-  // Aprobado, Rechazado, Pendiente
+  // Aprobado, Rechazado, Pendiente, devuelto
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private LoanStatus status;
 
   @ManyToOne
   @JoinColumn(name = "equipment_id")
-  @JsonBackReference
   private Equipment equipment;
 
   @ManyToOne
   @JoinColumn(name = "user_id")
-  @JsonBackReference
   private User user;
 
   public Loan() {
@@ -123,7 +119,8 @@ public class Loan {
   public String toString() {
     return "Loan [id=" + id + ", requestDate=" + requestDate + ", startDate=" + startDate + ", estimatedEndDate="
         + estimatedEndDate + ", actualReturnDate=" + actualReturnDate + ", justification=" + justification + ", status="
-        + status + ", equipment=" + equipment + ", user=" + user + "]";
+        + status + ", equipmentId=" + (equipment != null ? equipment.getId() : null)
+        + ", userId=" + (user != null ? user.getId() : null) + "]";
   }
 
 }

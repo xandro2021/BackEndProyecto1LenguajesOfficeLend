@@ -1,4 +1,5 @@
 package proyecto1.officelend.controller;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,42 +19,49 @@ import proyecto1.officelend.service.LoanService;
 @RequestMapping("/loans")
 public class LoanController {
 
-    @Autowired
-    private LoanService loanService;
+  @Autowired
+  private LoanService loanService;
 
-    @GetMapping
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Get all loans", description = "Returns a list of loans")
-    public List<Loan> get() {
-        return loanService.getLoans();
-    }
+  @GetMapping
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Get all loans", description = "Returns a list of loans")
+  public List<Loan> get() {
+    return loanService.getLoans();
+  }
 
-    @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Get a loan by ID", description = "Searches for a loan by its ID")
-    public Loan getById(@PathVariable int id) {
-        return loanService.getLoanById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
+  @GetMapping("/my")
+  @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+  @Operation(summary = "Get the loans by the current User ID", description = "Searches for the current user's loans")
+  public List<Loan> getMyLoans() {
+    return loanService.getLoansByCurrentUser();
+  }
 
-    @PostMapping
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
-    @Operation(summary = "Create a new loan", description = "Adds a new loan")
-    public Loan add(@RequestBody Loan loan) {
-        return loanService.registerLoan(loan);
-    }
+  @GetMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Get a loan by ID", description = "Searches for a loan by its ID")
+  public Loan getById(@PathVariable int id) {
+    return loanService.getLoanById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
 
-    @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Update a loan", description = "Modifies an existing loan")
-    public Loan update(@PathVariable int id, @RequestBody Loan loan) {
-        return loanService.updateLoan(id, loan);
-    }
+  @PostMapping
+  @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+  @Operation(summary = "Create a new loan", description = "Adds a new loan")
+  public Loan add(@RequestBody Loan loan) {
+    return loanService.registerLoan(loan);
+  }
 
-    @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
-    @Operation(summary = "Delete a loan", description = "Removes a loan from the database")
-    public void delete(@PathVariable int id) {
-        loanService.deleteLoan(id);
-    }
+  @PutMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Update a loan", description = "Modifies an existing loan")
+  public Loan update(@PathVariable int id, @RequestBody Loan loan) {
+    return loanService.updateLoan(id, loan);
+  }
+
+  @DeleteMapping("/{id}")
+  @PreAuthorize("hasRole('ADMIN')")
+  @Operation(summary = "Delete a loan", description = "Removes a loan from the database")
+  public void delete(@PathVariable int id) {
+    loanService.deleteLoan(id);
+  }
 }

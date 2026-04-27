@@ -36,7 +36,7 @@ public class Loan {
   @JoinColumn(name = "equipment_id")
   private Equipment equipment;
 
-  @ManyToOne
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "user_id")
   private User user;
 

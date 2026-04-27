@@ -115,8 +115,8 @@ function createRow(loan) {
   return tr;
 }
 
-
 function renderAdminActions(loan) {
+
   if (loan.status === "PENDIENTE") {
     return `
       <button class="btn-approve" onclick="updateStatus(${loan.id}, 'APROBADO')">
@@ -130,7 +130,9 @@ function renderAdminActions(loan) {
 
   if (loan.status === "APROBADO") {
     return `
-      <button class="btn-approve" disabled>Aprobado</button>
+      <button class="btn-return" onclick="markAsReturned(${loan.id})">
+        Marcar como devuelto
+      </button>
       <button class="btn-reject" onclick="updateStatus(${loan.id}, 'RECHAZADO')">
         Rechazar
       </button>
@@ -142,6 +144,12 @@ function renderAdminActions(loan) {
       <button class="btn-reevaluate" onclick="updateStatus(${loan.id}, 'PENDIENTE')">
         Re-evaluar
       </button>
+    `;
+  }
+
+  if (loan.status === "DEVUELTO") {
+    return `
+      <button class="btn-approve" disabled>Devuelto</button>
     `;
   }
 
@@ -289,4 +297,31 @@ function getInitials(name) {
     .join("")
     .toUpperCase()
     .substring(0, 2);
+}
+
+
+async function markAsReturned(id) {
+  try {
+    const token = localStorage.getItem("jwt");
+
+    const res = await fetch(`/loans/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      },
+      body: JSON.stringify({
+        status: "DEVUELTO",
+        actualReturnDate: new Date().toISOString().split("T")[0]
+      })
+    });
+
+    if (!res.ok) throw new Error("Error marcando como devuelto");
+
+    await loadLoans();
+
+  } catch (err) {
+    console.error(err);
+    alert("Error al marcar como devuelto");
+  }
 }

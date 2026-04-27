@@ -652,3 +652,15 @@ main {
     padding-bottom: 1rem;
     padding-top: 1rem;
 }
+
+.btn-return {
+  background-color: #2563eb; /* azul */
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.btn-return:hover {
+  background-color: #1d4ed8;
+}

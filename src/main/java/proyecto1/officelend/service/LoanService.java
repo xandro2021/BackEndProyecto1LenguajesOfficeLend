@@ -82,12 +82,29 @@ public class LoanService {
     Loan existing = loanRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Loan not found"));
 
-    existing.setStartDate(loan.getStartDate());
-    existing.setEstimatedEndDate(loan.getEstimatedEndDate());
-    existing.setActualReturnDate(loan.getActualReturnDate());
+    // SOLO si cambia a DEVUELTO
+    if (existing.getStatus() != LoanStatus.DEVUELTO
+        && loan.getStatus() == LoanStatus.DEVUELTO) {
 
-    existing.setJustification(loan.getJustification());
-    existing.setStatus(loan.getStatus());
+      var equipment = existing.getEquipment();
+      equipment.setStock(equipment.getStock() + 1);
+      equipmentService.registerEquipment(equipment);
+
+      existing.setActualReturnDate(LocalDate.now());
+    }
+
+    // SOLO actualizar si viene valor (evita nulls)
+    if (loan.getStartDate() != null)
+      existing.setStartDate(loan.getStartDate());
+
+    if (loan.getEstimatedEndDate() != null)
+      existing.setEstimatedEndDate(loan.getEstimatedEndDate());
+
+    if (loan.getJustification() != null)
+      existing.setJustification(loan.getJustification());
+
+    if (loan.getStatus() != null)
+      existing.setStatus(loan.getStatus());
 
     return loanRepository.save(existing);
   }

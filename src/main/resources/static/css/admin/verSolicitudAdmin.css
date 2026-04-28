@@ -339,6 +339,54 @@ main {
 }
 
 /* ─── Action buttons ─────────────────────────────────────────── */
+.btn-return {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    border: none;
+    border-radius: .375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    transition: background .2s, transform .1s;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, .2);
+    cursor: pointer;
+}
+
+.btn-return:hover  { background-color: #f97316; color: #fff; }
+.btn-return:active { transform: scale(.95); }
+.btn-return .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.btn-reevaluate {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-secondary-container);
+    color: var(--color-on-secondary-container);
+    font-family: 'Manrope', sans-serif;
+    font-weight: 800;
+    border: none;
+    border-radius: .375rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    transition: background .2s, transform .1s;
+    box-shadow: 0 4px 12px rgba(249, 115, 22, .2);
+    cursor: pointer;
+}
+
+.btn-reevaluate:hover  { background-color: #f97316; color: #fff; }
+.btn-reevaluate:active { transform: scale(.95); }
+.btn-reevaluate .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
 .btn-approve {
     width: 100%;
     padding: 1rem;

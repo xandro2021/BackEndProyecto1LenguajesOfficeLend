@@ -7,9 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.servlet.http.HttpServletRequest;
 import proyecto1.officelend.dto.AuthResponse;
 import proyecto1.officelend.dto.LoginRequest;
 import proyecto1.officelend.security.JwtUtil;
+import proyecto1.officelend.service.TokenBlacklistService;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,13 +20,14 @@ public class AuthController {
   private final AuthenticationManager authenticationManager;
   private final UserDetailsService userDetailsService;
   private final JwtUtil jwtUtil;
+  private final TokenBlacklistService blacklistService;
 
-  public AuthController(AuthenticationManager authenticationManager,
-      UserDetailsService userDetailsService,
-      JwtUtil jwtUtil) {
+  public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService,
+      JwtUtil jwtUtil, TokenBlacklistService blacklistService) {
     this.authenticationManager = authenticationManager;
     this.userDetailsService = userDetailsService;
     this.jwtUtil = jwtUtil;
+    this.blacklistService = blacklistService;
   }
 
   @PostMapping("/login")
@@ -52,4 +55,17 @@ public class AuthController {
 
     }
   }
+
+  @PostMapping("/logout")
+  public ResponseEntity<?> logout(HttpServletRequest request) {
+    String authHeader = request.getHeader("Authorization");
+
+    if (authHeader != null && authHeader.startsWith("Bearer ")) {
+      String token = authHeader.substring(7);
+      blacklistService.blacklistToken(token);
+    }
+
+    return ResponseEntity.ok("Logout exitoso");
+  }
+
 }

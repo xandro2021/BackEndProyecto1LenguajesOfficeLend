@@ -204,12 +204,12 @@
                         </div>
 
                         <!-- Número de serie -->
-                        <div class="col-md-6">
+                        <div th:if="${modo == 'editar'}" class="col-md-6">
                             <label class="fw-bold text-custom-primary small text-uppercase mb-2">
                                 Número de Serie / ID de Activo
                             </label>
                             <input type="text" id="input-serial" class="form-custom-input w-100"
-                                placeholder="SN-XXXX-XXXX" />
+                                placeholder="SN-XXXX-XXXX" disabled />
                         </div>
 
                         <!-- Descripción -->

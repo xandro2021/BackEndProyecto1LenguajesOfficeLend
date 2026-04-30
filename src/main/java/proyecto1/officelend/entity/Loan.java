@@ -15,7 +15,7 @@ public class Loan {
   @Column(name = "request_date", nullable = false)
   private LocalDate requestDate;
 
-  @Column(name = "start_date", nullable = false)
+  @Column(name = "start_date")
   private LocalDate startDate;
 
   @Column(name = "estimated_end_date", nullable = false)
@@ -27,7 +27,7 @@ public class Loan {
   @Column(columnDefinition = "TEXT")
   private String justification;
 
-  // Aprobado, Rechazado, Pendiente, devuelto
+  // APROBADO, RECHAZADO, PENDIENTE, ENTREGADO, DEVUELTO
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   private LoanStatus status;

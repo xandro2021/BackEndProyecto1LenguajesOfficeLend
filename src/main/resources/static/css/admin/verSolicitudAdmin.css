@@ -461,6 +461,13 @@ main {
     flex-shrink: 0;
 }
 
+.correoUsuario {
+    font-size:1.05rem;
+    font-weight:600;
+    color:var(--color-primary);
+    text-decoration:underline;
+}
+
 
 /* ─── Responsive tweaks ──────────────────────────────────────── */
 @media (max-width: 767px) {

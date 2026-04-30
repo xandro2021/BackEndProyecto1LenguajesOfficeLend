@@ -17,7 +17,7 @@
 </head>
 
 <body>
-
+    <!-- verSolicitudUser.html -->
     <header class="sticky-top bg-white shadow-sm" style="backdrop-filter: blur(8px);">
         <div class="container py-3">
             <div class="d-flex justify-content-between align-items-center">
@@ -103,21 +103,19 @@
                         <div class="row g-4 flex-grow-1 w-100">
                             <div class="col-12 col-sm-6">
                                 <span class="field-label">Nombre Completo</span>
-                                <p class="field-value mb-0">Dra. Elena Rodríguez</p>
+                                <p id="nombreUsuario" class="field-value mb-0"></p>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <span class="field-label">ID de Empleado</span>
-                                <p class="field-value mb-0">FAC-2024-0982</p>
+                                <span class="field-label">Id Usuario</span>
+                                <p id="idUsuario" class="field-value mb-0"></p>
                             </div>
                             <div class="col-12 col-sm-6">
-                                <span class="field-label">Departamento</span>
-                                <p class="field-value mb-0">Humanidades Digitales &amp; Medios</p>
+                                <span class="field-label">Role</span>
+                                <p id="roleUsuario" class="field-value mb-0"></p>
                             </div>
                             <div class="col-12 col-sm-6">
                                 <span class="field-label">Correo de Contacto</span>
-                                <p class="mb-0" style="font-size:1.05rem; font-weight:600; color:var(--color-primary); text-decoration:underline;">
-                                    e.rodriguez@ucr.edu
-                                </p>
+                                <p id="correoUsuario" class="mb-0" ></p>
                             </div>
                         </div>
                     </div>
@@ -145,19 +143,19 @@
                             <div class="row g-4">
                                 <div class="col-12">
                                     <span class="field-label">Nombre del Equipo</span>
-                                    <p class="mb-0 fs-5 fw-bold" style="color:var(--color-on-surface);">
-                                        MacBook Pro 16" – Chip M3 Max
+                                    <p id="nombreEquipo" class="mb-0 fs-5 fw-bold" style="color:var(--color-on-surface);">
+
                                     </p>
                                 </div>
                                 <div class="col-12 col-sm-6">
-                                    <span class="field-label">Número de Serie</span>
-                                    <span class="mono-chip">NS: UCR-MBP-2023-A9X</span>
+                                    <span class="field-label">Id Equipo</span>
+                                    <span id="idEquipo" class="mono-chip"></span>
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <span class="field-label">Categoría</span>
-                                    <p class="mb-0 fw-semibold small d-flex align-items-center gap-1" style="color:var(--color-on-surface);">
+                                    <p id="typeEquipo" class="mb-0 fw-semibold small d-flex align-items-center gap-1" style="color:var(--color-on-surface);">
                                         <span class="material-symbols-outlined" style="font-size:1rem;">laptop_mac</span>
-                                        Computación de Alto Rendimiento
+                                        Categoria...
                                     </p>
                                 </div>
                                 <div class="col-12">
@@ -191,7 +189,7 @@
                                     <span class="material-symbols-outlined">calendar_today</span>
                                 </div>
                                 <span class="field-label">Fecha de Solicitud</span>
-                                <p class="fw-bold mb-0" style="color:var(--color-on-surface);">24 oct. 2023</p>
+                                <p id="fechaSolicitud" class="fw-bold mb-0" style="color:var(--color-on-surface);">24 oct. 2023</p>
                             </div>
 
                             <!-- Ítem 2 -->
@@ -200,8 +198,8 @@
                                     <span class="material-symbols-outlined" style="color:var(--color-on-secondary-container);">event_repeat</span>
                                 </div>
                                 <span class="field-label">Devolución Estimada</span>
-                                <p class="fw-bold mb-0" style="color:var(--color-on-surface);">15 dic. 2023</p>
-                                <span style="font-size:.625rem; color:var(--color-secondary); font-weight:600; font-style:italic;">
+                                <p id="fechaDevolucionEstimada" class="fw-bold mb-0" style="color:var(--color-on-surface);">15 dic. 2023</p>
+                                <span id="duracion" style="font-size:.625rem; color:var(--color-secondary); font-weight:600; font-style:italic;">
                                     (Duración: 52 días)
                                 </span>
                             </div>
@@ -231,11 +229,7 @@
                     <div class="d-flex flex-column gap-3 mb-4">
                         <button class="btn-approve">
                             <span class="material-symbols-outlined">check_circle</span>
-                            Aprobar Préstamo
-                        </button>
-                        <button class="btn-reject">
-                            <span class="material-symbols-outlined">cancel</span>
-                            Rechazar Solicitud
+                            Mensaje de estado de solicitud
                         </button>
                     </div>
 
@@ -264,5 +258,6 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="/js/usuario/verSolicitudUser.js"></script>
 </body>
 </html>

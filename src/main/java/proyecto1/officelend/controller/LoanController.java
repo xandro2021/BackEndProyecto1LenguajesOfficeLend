@@ -9,6 +9,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+
 import proyecto1.officelend.entity.Loan;
 import proyecto1.officelend.service.LoanService;
 
@@ -42,6 +44,22 @@ public class LoanController {
   public Loan getById(@PathVariable int id) {
     return loanService.getLoanById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+  }
+
+  @GetMapping("/my/{id}")
+  @PreAuthorize("hasAnyRole('USER','ADMIN')")
+  public Loan getMyLoanById(@PathVariable int id) {
+    Loan loan = loanService.getLoanById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+    // validar que sea del usuario actual
+    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+    if (!loan.getUser().getUsername().equals(username)) {
+      throw new ResponseStatusException(HttpStatus.FORBIDDEN);
+    }
+
+    return loan;
   }
 
   @PostMapping

@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const form = document.querySelector("form");
   const today = new Date().toISOString().split("T")[0];
-  document.getElementById("fecha-inicio").min = today;
   document.getElementById("fecha-devolucion").min = today;
 
   form.addEventListener("submit", async (e) => {
@@ -28,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // 2. obtener datos del formulario
       const justification = document.getElementById("justificacion").value;
-      const startDate = document.getElementById("fecha-inicio").value;
+      const requestDate = today;
       const estimatedEndDate = document.getElementById("fecha-devolucion").value;
       const compliance = document.getElementById("compliance").checked;
 
@@ -37,14 +36,14 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
-      if (!justification || !startDate || !estimatedEndDate) {
+      if (!justification || !estimatedEndDate) {
         alert("Complete todos los campos");
         return;
       }
 
       // 3. construir objeto
       const loanData = {
-        startDate,
+        requestDate,
         estimatedEndDate,
         justification,
         equipment: { id: equipmentId }

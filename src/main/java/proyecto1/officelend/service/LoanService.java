@@ -25,11 +25,11 @@ public class LoanService {
 
   public Loan registerLoan(Loan loan) {
 
-    if (loan.getStartDate().isAfter(loan.getEstimatedEndDate())) {
+    if (loan.getRequestDate().isAfter(loan.getEstimatedEndDate())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Rango de fechas invalido");
     }
 
-    if (loan.getStartDate().isBefore(LocalDate.now())) {
+    if (loan.getRequestDate().isBefore(LocalDate.now())) {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "La fecha de inicio no puede ser en el pasado");
     }
 

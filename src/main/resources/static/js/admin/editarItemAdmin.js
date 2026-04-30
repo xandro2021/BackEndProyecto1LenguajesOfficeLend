@@ -54,10 +54,11 @@ async function loadEquipment(id) {
 function populateForm(equipment) {
   equipmentId = equipment.id;
   currentImageFilename = equipment.imageFilename;
+  console.log(equipment);
 
   document.getElementById('input-name').value = equipment.name;
   document.getElementById('input-type').value = equipment.type;
-  document.getElementById('input-serial').value = equipment.serialNumber || '';
+  document.getElementById('input-serial').value = equipment.id || '';
   document.getElementById('input-description').value = equipment.description;
   document.getElementById('input-stock').value = equipment.stock;
   document.getElementById('input-status').value = equipment.status;
@@ -220,6 +221,8 @@ async function guardarEquipo() {
   }
 
   try {
+    document.querySelector('#btn-guardar').disabled = true;
+
     const response = await fetch(`${API_BASE}/equipment/${equipmentId}`, {
       method: 'PUT',
       headers: {
@@ -238,11 +241,13 @@ async function guardarEquipo() {
     } else {
       alertMsg.textContent = 'Error al guardar los cambios. Intenta nuevamente.';
       alert.classList.remove('d-none');
+      document.querySelector('#btn-guardar').disabled = false;
     }
   } catch (error) {
     console.error('Error:', error);
     alertMsg.textContent = 'No se pudo conectar con el servidor.';
     alert.classList.remove('d-none');
+    document.querySelector('#btn-guardar').disabled = false;
   }
 }
 
@@ -257,7 +262,9 @@ document.querySelectorAll('.btn-scale-active').forEach(btn => {
   });
 });
 
+
 // ── Inicializar ───────────────────────────────────────────
+document.querySelector('#btn-guardar').disabled = false;
 const id = getEquipmentIdFromUrl();
 if (id) {
   changePageTitle();

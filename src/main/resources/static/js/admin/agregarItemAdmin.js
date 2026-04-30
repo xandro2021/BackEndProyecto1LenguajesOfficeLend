@@ -1,6 +1,7 @@
 // agregarItemAdmin.js
 const API_BASE = 'http://localhost:8080';
 let selectedImage = null;
+document.querySelector('#btn-guardar').disabled = false;
 
 // ── Fecha de hoy ──────────────────────────────────────────
 document.getElementById('fecha-ingreso').textContent =
@@ -134,6 +135,7 @@ async function guardarEquipo() {
   }
 
   try {
+    document.querySelector('#btn-guardar').disabled = true;
     const response = await fetch(`${API_BASE}/equipment`, {
       method: 'POST',
       headers: {
@@ -153,11 +155,13 @@ async function guardarEquipo() {
     } else {
       alertMsg.textContent = 'Error al guardar el equipo. Intenta nuevamente.';
       alert.classList.remove('d-none');
+      document.querySelector('#btn-guardar').disabled = false;
     }
   } catch (error) {
     console.error('Error:', error);
     alertMsg.textContent = 'No se pudo conectar con el servidor.';
     alert.classList.remove('d-none');
+    document.querySelector('#btn-guardar').disabled = false;
   }
 }
 

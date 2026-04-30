@@ -4,6 +4,6 @@ public enum LoanStatus {
     PENDIENTE,
     APROBADO,
     RECHAZADO,
-    ENTREGADO,
+    PRESTADO,
     DEVUELTO
 }

@@ -80,26 +80,33 @@ public class LoanService {
     Loan existing = loanRepository.findById(id)
         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "El prestamo no se ha encontrado"));
 
-    // SOLO si cambia a DEVUELTO
+    LoanStatus nuevo = loan.getStatus();
+
+    if (nuevo != null) {
+      validarTransicion(existing.getStatus(), nuevo);
+    }
+
+    // efectos dependen del estado actual → nuevo
     devolverEquipo(loan, existing);
     prestarEquipo(loan, existing);
     rechazarSolicitudEquipo(loan, existing);
     reevaluarSolicitudEquipo(loan, existing);
 
-    // SOLO actualizar si viene valor (evita nulls)
-    if (loan.getStatus() != null)
-      existing.setStatus(loan.getStatus());
+    if (nuevo != null) {
+      existing.setStatus(nuevo);
+    }
 
     return loanRepository.save(existing);
   }
 
   private void reevaluarSolicitudEquipo(Loan loan, Loan existing) {
-    if (existing.getStatus() != LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.PENDIENTE) {
+    if (existing.getStatus() == LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.PENDIENTE) {
       // Al reevaluar vuelvo a reservar el equipo
       var equipment = existing.getEquipment();
       // verifico que haya stock sino paro todo con un error que recibe el cliente
-      if (equipment.getStock()<=0) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay stock por lo que no se puede reevaluar la solicitud");
+      if (equipment.getStock() <= 0) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            "No hay stock por lo que no se puede reevaluar la solicitud");
       }
       equipment.setStock(equipment.getStock() - 1);
       equipmentService.registerEquipment(equipment);
@@ -108,7 +115,8 @@ public class LoanService {
   }
 
   private void rechazarSolicitudEquipo(Loan loan, Loan existing) {
-    if (existing.getStatus() != LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.RECHAZADO) {
+    if ((existing.getStatus() == LoanStatus.PENDIENTE || existing.getStatus() == LoanStatus.APROBADO)
+        && loan.getStatus() == LoanStatus.RECHAZADO) {
 
       // Devuelvo el articulo
       var equipment = existing.getEquipment();
@@ -128,7 +136,7 @@ public class LoanService {
   }
 
   private void devolverEquipo(Loan loan, Loan existing) {
-    if (existing.getStatus() != LoanStatus.DEVUELTO
+    if (existing.getStatus() == LoanStatus.PRESTADO
         && loan.getStatus() == LoanStatus.DEVUELTO) {
 
       var equipment = existing.getEquipment();
@@ -136,6 +144,47 @@ public class LoanService {
       equipmentService.registerEquipment(equipment);
 
       existing.setActualReturnDate(LocalDate.now());
+    }
+  }
+
+  private void validarTransicion(LoanStatus actual, LoanStatus nuevo) {
+
+    if (actual == nuevo)
+      return;
+
+    switch (actual) {
+
+      case PENDIENTE:
+        if (nuevo != LoanStatus.APROBADO && nuevo != LoanStatus.RECHAZADO) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+              "Transición inválida: PENDIENTE → " + nuevo);
+        }
+        break;
+
+      case APROBADO:
+        if (nuevo != LoanStatus.PRESTADO && nuevo != LoanStatus.RECHAZADO) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+              "Transición inválida: APROBADO → " + nuevo);
+        }
+        break;
+
+      case PRESTADO:
+        if (nuevo != LoanStatus.DEVUELTO) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+              "Transición inválida: PRESTADO → " + nuevo);
+        }
+        break;
+
+      case RECHAZADO:
+        if (nuevo != LoanStatus.PENDIENTE) {
+          throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+              "Transición inválida: RECHAZADO → " + nuevo);
+        }
+        break;
+
+      case DEVUELTO:
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+            "No se puede modificar un préstamo DEVUELTO");
     }
   }
 

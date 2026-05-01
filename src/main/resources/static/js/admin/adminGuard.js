@@ -18,7 +18,7 @@ function logout() {
             "Authorization": "Bearer " + token
         }
     }).finally(() => {
-        localStorage.removeItem("token");
+        localStorage.removeItem("jwt");
         localStorage.removeItem("role");
         window.location.href = "/login";
     });

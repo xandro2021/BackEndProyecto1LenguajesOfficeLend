@@ -164,6 +164,7 @@ async function deleteEquipment(id) {
     if (response.ok) {
       allEquipment = allEquipment.filter(eq => eq.id !== id);
       changePage(currentPage);
+      window.location.href = "/admin/catalogo";
     } else {
       alert('No se pudo eliminar el equipo.');
     }

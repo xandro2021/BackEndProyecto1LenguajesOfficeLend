@@ -29,30 +29,38 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable())
         .cors(Customizer.withDefaults())
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/auth/**").permitAll()
-            .requestMatchers("/", "/login").permitAll()
 
-            // Todas las vistas Thymeleaf van aquí
-            .requestMatchers("/admin/**", "/user/**").permitAll() // vistas públicas, el guard.js maneja la auth
+        .authorizeHttpRequests(auth -> auth
+
+            .requestMatchers("/auth/**").permitAll()
+            .requestMatchers("/", "/login", "/register").permitAll()
+
+            .requestMatchers("/users/register").permitAll()
+
+            .requestMatchers("/admin/**", "/user/**").permitAll()
+
             .requestMatchers("/error").permitAll()
 
             .requestMatchers("/css/**", "/img/**", "/js/**").permitAll()
             .requestMatchers("/uploads/**").permitAll()
             .requestMatchers("/all").permitAll()
+
             .requestMatchers(
                 "/swagger-ui/**",
                 "/swagger-ui.html",
                 "/v3/api-docs/**",
-                "/v3/api-docs.yaml")
-            .permitAll()
+                "/v3/api-docs.yaml"
+            ).permitAll()
 
-            // Solo los endpoints REST siguen protegidos por JWT
             .requestMatchers("/loans/**").authenticated()
             .requestMatchers("/equipment/**").authenticated()
             .requestMatchers("/users/**").authenticated()
-            .anyRequest().authenticated())
+
+            .anyRequest().authenticated()
+        )
+
         .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class)
+
         .build();
   }
 

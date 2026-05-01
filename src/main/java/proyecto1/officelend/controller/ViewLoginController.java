@@ -15,5 +15,8 @@ public class ViewLoginController {
   public String login() {
     return "index";
   }
-
+@GetMapping("/register")
+public String register() {
+    return "register";
+}
 }

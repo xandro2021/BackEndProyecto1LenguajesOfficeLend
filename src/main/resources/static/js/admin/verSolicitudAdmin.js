@@ -108,11 +108,35 @@ function renderDuration(startDateStr, endDateStr) {
 function renderStatus(status) {
   const badge = document.querySelector(".status-badge");
 
-  if (!badge) return;
+  let icon = "info";
+  let text = status;
+
+  switch (status) {
+    case "PENDIENTE":
+      icon = "schedule";
+      text = "Pendiente";
+      break;
+    case "APROBADO":
+      icon = "check_circle";
+      text = "Aprobado";
+      break;
+    case "PRESTADO":
+      icon = "inventory_2";
+      text = "Prestado";
+      break;
+    case "RECHAZADO":
+      icon = "cancel";
+      text = "Rechazado";
+      break;
+    case "DEVUELTO":
+      icon = "done_all";
+      text = "Devuelto";
+      break;
+  }
 
   badge.innerHTML = `
-    <span class="material-symbols-outlined">info</span>
-    ${status}
+    <span class="material-symbols-outlined">${icon}</span>
+    ${text}
   `;
 }
 
@@ -165,9 +189,13 @@ function setupActionButtons(loan) {
 
   if (!actionBtn) return;
 
-  // limpiar eventos previos
   actionBtn.onclick = null;
-  if (rejectBtn) rejectBtn.onclick = null;
+  actionBtn.disabled = false;
+
+  if (rejectBtn) {
+    rejectBtn.onclick = null;
+    rejectBtn.style.display = "none";
+  }
 
   switch (loan.status) {
 
@@ -177,7 +205,6 @@ function setupActionButtons(loan) {
         Aprobar Préstamo
       `;
       actionBtn.className = "btn-approve";
-
       actionBtn.onclick = () => updateStatus(loan.id, "APROBADO");
 
       if (rejectBtn) {
@@ -188,16 +215,28 @@ function setupActionButtons(loan) {
 
     case "APROBADO":
       actionBtn.innerHTML = `
-        <span class="material-symbols-outlined">assignment_return</span>
-        Marcar como devuelto
+        <span class="material-symbols-outlined">inventory_2</span>
+        Entregar al cliente
       `;
-      actionBtn.className = "btn-return";
-
-      actionBtn.onclick = () => markAsReturned(loan.id);
+      actionBtn.className = "btn-approve";
+      actionBtn.onclick = () => updateStatus(loan.id, "PRESTADO");
 
       if (rejectBtn) {
         rejectBtn.style.display = "block";
         rejectBtn.onclick = () => updateStatus(loan.id, "RECHAZADO");
+      }
+      break;
+
+    case "PRESTADO":
+      actionBtn.innerHTML = `
+        <span class="material-symbols-outlined">assignment_return</span>
+        Marcar como devuelto
+      `;
+      actionBtn.className = "btn-return";
+      actionBtn.onclick = () => markAsReturned(loan.id);
+
+      if (rejectBtn) {
+        rejectBtn.style.display = "none";
       }
       break;
 
@@ -207,10 +246,7 @@ function setupActionButtons(loan) {
         Re-evaluar
       `;
       actionBtn.className = "btn-reevaluate";
-
       actionBtn.onclick = () => updateStatus(loan.id, "PENDIENTE");
-
-      if (rejectBtn) rejectBtn.style.display = "none";
       break;
 
     case "DEVUELTO":
@@ -219,8 +255,6 @@ function setupActionButtons(loan) {
         Devuelto
       `;
       actionBtn.disabled = true;
-
-      if (rejectBtn) rejectBtn.style.display = "none";
       break;
   }
 }
@@ -243,13 +277,22 @@ async function updateStatus(id, status) {
       body: JSON.stringify(updatedLoan)
     });
 
-    if (!res.ok) throw new Error("Error actualizando estado");
+    if (!res.ok) {
+      let msg = "Error actualizando estado";
+
+      try {
+        const data = await res.json();
+        msg = data.message || msg;
+      } catch {}
+
+      throw new Error(msg);
+    }
 
     await loadLoanDetail(); // recarga solo este préstamo
 
   } catch (err) {
     console.error(err);
-    alert("Error al actualizar estado");
+    alert(err.message);
   }
 }
 

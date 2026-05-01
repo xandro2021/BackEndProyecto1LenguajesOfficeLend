@@ -97,8 +97,9 @@ public class LoanService {
     if (existing.getStatus() != LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.PENDIENTE) {
       // Al reevaluar vuelvo a reservar el equipo
       var equipment = existing.getEquipment();
+      // verifico que haya stock sino paro todo con un error que recibe el cliente
       if (equipment.getStock()<=0) {
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sin stock");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No hay stock por lo que no se puede reevaluar la solicitud");
       }
       equipment.setStock(equipment.getStock() - 1);
       equipmentService.registerEquipment(equipment);

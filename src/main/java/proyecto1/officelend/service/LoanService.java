@@ -44,10 +44,8 @@ public class LoanService {
       throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sin stock");
     }
 
-    // bajar stock, si llega a cero al guardarlo se aplica regla de negocio para
-    // cambiar su estado a ocupado
+    // reservo el equipo para evitar mas solicitudes por el mismo equipo
     equipment.setStock(equipment.getStock() - 1);
-
     // En este caso se actualizaria el equipo en vez de agregar uno nuevo debido
     // al metodo save de repository, ademas de que hay validacion del stock sea
     // menor a 0 para tener estatus ocupado
@@ -80,9 +78,55 @@ public class LoanService {
 
   public Loan updateLoan(int id, Loan loan) {
     Loan existing = loanRepository.findById(id)
-        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Loan not found"));
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "El prestamo no se ha encontrado"));
 
     // SOLO si cambia a DEVUELTO
+    devolverEquipo(loan, existing);
+    prestarEquipo(loan, existing);
+    rechazarSolicitudEquipo(loan, existing);
+    reevaluarSolicitudEquipo(loan, existing);
+
+    // SOLO actualizar si viene valor (evita nulls)
+    if (loan.getStatus() != null)
+      existing.setStatus(loan.getStatus());
+
+    return loanRepository.save(existing);
+  }
+
+  private void reevaluarSolicitudEquipo(Loan loan, Loan existing) {
+    if (existing.getStatus() != LoanStatus.PENDIENTE && loan.getStatus() == LoanStatus.PENDIENTE) {
+      // Al reevaluar vuelvo a reservar el equipo
+      var equipment = existing.getEquipment();
+      if (equipment.getStock()<=0) {
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Sin stock");
+      }
+      equipment.setStock(equipment.getStock() - 1);
+      equipmentService.registerEquipment(equipment);
+
+    }
+  }
+
+  private void rechazarSolicitudEquipo(Loan loan, Loan existing) {
+    if (existing.getStatus() != LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.RECHAZADO) {
+
+      // Devuelvo el articulo
+      var equipment = existing.getEquipment();
+      equipment.setStock(equipment.getStock() + 1);
+      equipmentService.registerEquipment(equipment);
+
+    }
+  }
+
+  private void prestarEquipo(Loan loan, Loan existing) {
+    // Debe habersido anteriormente aprobado y la solicitud actual es de
+    // prestado para concretar el prestamo al cliente. Es cuando el cliente
+    // retira el articulo para su uso personal, es cuanto inicia el contador
+    if (existing.getStatus() == LoanStatus.APROBADO && loan.getStatus() == LoanStatus.PRESTADO) {
+      existing.setStartDate(LocalDate.now());
+    }
+  }
+
+  private void devolverEquipo(Loan loan, Loan existing) {
     if (existing.getStatus() != LoanStatus.DEVUELTO
         && loan.getStatus() == LoanStatus.DEVUELTO) {
 
@@ -92,21 +136,6 @@ public class LoanService {
 
       existing.setActualReturnDate(LocalDate.now());
     }
-
-    // SOLO actualizar si viene valor (evita nulls)
-    if (loan.getStartDate() != null)
-      existing.setStartDate(loan.getStartDate());
-
-    if (loan.getEstimatedEndDate() != null)
-      existing.setEstimatedEndDate(loan.getEstimatedEndDate());
-
-    if (loan.getJustification() != null)
-      existing.setJustification(loan.getJustification());
-
-    if (loan.getStatus() != null)
-      existing.setStatus(loan.getStatus());
-
-    return loanRepository.save(existing);
   }
 
 }

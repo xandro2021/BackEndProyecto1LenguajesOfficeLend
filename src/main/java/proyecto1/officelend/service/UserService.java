@@ -54,13 +54,13 @@ public class UserService {
     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
     if (auth == null || !auth.isAuthenticated()) {
-      throw new RuntimeException("No authenticated user");
+      throw new RuntimeException("El usuario no esta autenticado");
     }
 
     String username = auth.getName(); // esto viene del JWT
 
     return userRepository.findByUsername(username)
-        .orElseThrow(() -> new RuntimeException("User not found"));
+        .orElseThrow(() -> new RuntimeException("El usuario no se ha encontrado"));
   }
 
 }

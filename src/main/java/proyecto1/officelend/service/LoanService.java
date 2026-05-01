@@ -94,7 +94,7 @@ public class LoanService {
   }
 
   private void reevaluarSolicitudEquipo(Loan loan, Loan existing) {
-    if (existing.getStatus() != LoanStatus.PENDIENTE && loan.getStatus() == LoanStatus.PENDIENTE) {
+    if (existing.getStatus() != LoanStatus.RECHAZADO && loan.getStatus() == LoanStatus.PENDIENTE) {
       // Al reevaluar vuelvo a reservar el equipo
       var equipment = existing.getEquipment();
       if (equipment.getStock()<=0) {

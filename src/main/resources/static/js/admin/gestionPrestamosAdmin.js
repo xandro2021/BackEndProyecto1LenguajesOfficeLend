@@ -187,14 +187,25 @@ async function updateStatus(id, status) {
       body: JSON.stringify(updatedLoan)
     });
 
-    if (!res.ok) throw new Error("Error actualizando estado");
+    if (!res.ok) {
+      let errorMessage = "Error actualizando estado";
+
+      try {
+        const errorData = await res.json();
+        errorMessage = errorData.message || errorMessage;
+      } catch (e) {
+        // si no viene JSON, dejamos el mensaje genérico
+      }
+
+      throw new Error(errorMessage);
+    }
 
     // recargar datos
     await loadLoans();
 
   } catch (err) {
     console.error(err);
-    alert("Error al actualizar estado");
+    alert(err.message);
   }
 }
 

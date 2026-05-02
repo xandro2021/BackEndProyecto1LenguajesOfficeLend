@@ -654,7 +654,7 @@ main {
 }
 
 .btn-return {
-  background-color: #2563eb; /* azul */
+  background-color: #2563eb; 
   color: white;
   border: none;
   padding: 6px 10px;
@@ -663,4 +663,25 @@ main {
 
 .btn-return:hover {
   background-color: #1d4ed8;
+}
+
+.btn-delete {
+  background-color: #ef4444; 
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-delete:hover {
+  background-color: #dc2626; 
+  transform: scale(1.05);
+}
+
+.btn-delete:active {
+  transform: scale(0.95);
 }

@@ -155,12 +155,18 @@ function renderAdminActions(loan) {
       <button class="btn-reevaluate" onclick="updateStatus(${loan.id}, 'PENDIENTE')">
         Re-evaluar
       </button>
+      <button class="btn-delete" onclick="deleteLoan(${loan.id})">
+      Eliminar
+    </button>
     `;
   }
 
   if (loan.status === "DEVUELTO") {
     return `
       <button class="btn-approve" disabled>Devuelto</button>
+      <button class="btn-delete" onclick="deleteLoan(${loan.id})">
+      Eliminar
+    </button>
     `;
   }
 
@@ -233,6 +239,35 @@ async function markAsReturned(id) {
     console.error(err);
     alert("Error al marcar como devuelto");
   }
+}
+
+function deleteLoan(id) {
+
+  if (!confirm("¿Eliminar esta solicitud?")) {
+    return;
+  }
+
+  const token = localStorage.getItem("jwt");
+
+  fetch("/loans/" + id, {
+    method: "DELETE",
+    headers: {
+      "Authorization": "Bearer " + token
+    }
+  })
+  .then(res => {
+    if (!res.ok) {
+      alert("Error al eliminar");
+      return;
+    }
+
+    // volver a cargar la tabla
+    loadLoans();
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Error");
+  });
 }
 
 function renderStatus(status) {

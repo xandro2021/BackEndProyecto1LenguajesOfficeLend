@@ -37,7 +37,7 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     // Redirect based on role
     if (data.role === 'ROLE_ADMIN') {
-      window.location.href = '/admin/catalogo';
+      window.location.href = '/admin/dashboard';
     } else {
       window.location.href = '/user/catalogo';
     }

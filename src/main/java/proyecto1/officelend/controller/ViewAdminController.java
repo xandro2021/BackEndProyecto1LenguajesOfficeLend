@@ -39,4 +39,7 @@ public class ViewAdminController {
   public String verDetallePrestamo() {
     return "admin/verSolicitudAdmin";
   }
+
+
+
 }

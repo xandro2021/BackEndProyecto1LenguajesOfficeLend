@@ -48,13 +48,19 @@
                     <button class="btn btn-link text-custom-primary p-2">
                         <span class="material-symbols-outlined">notifications</span>
                     </button>
-                    <button class="btn btn-link text-custom-primary p-2">
-                        <span class="material-symbols-outlined">settings</span>
+                      <button type="button" class="btn btn-link text-custom-primary p-2" onclick="openSettings()" title="Abrir configuración">
+                        <span class="material-symbols-outlined fs-n3">settings</span>
                     </button>
-                    <div class="rounded-circle overflow-hidden border border-light shadow-sm"
-                        style="width: 40px; height: 40px;">
+                    <button id="menuToggleBtn" type="button" class="btn btn-link p-0 rounded-circle overflow-hidden border border-light shadow-sm" style="width: 40px; height: 40px;" onclick="toggleHeaderMenu()" title="Mostrar opciones">
                         <img alt="User profile" class="w-100 h-100 object-fit-cover"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw7nxzJSdrR71CDJcr7kC74LjSK0FQ4lqpD3NebHzuBF2OKLcobdpMmXLTfXGjKhnwCsGDV2mN9HPKDx-tqzf23jNvhXxFM75S6XKC3LG98PiUY7HxPnK2lIS1M_4GLStSAhndvd9Qn50PRYC5jcBbYgw4BSiKmrhfaCEilKQgy1fH7KuLwKDGqS4BSOc6v4w6xKL722wJvMxtVxo4_cE_vR5qmR6qfuI_PH9r7xPCSIJzDIrCuivh_EQ1OP5_X1nTqItkinNBbVc">
+                    </button>
+                     <div id="headerMenu" class="bg-white border rounded-3 shadow-sm" style="display:none; position:absolute; right:0; top:56px; min-width: 180px; z-index:1000;">
+                        <a class="d-block px-3 py-2 text-decoration-none text-dark" href="/admin/dashboard">Dashboard</a>
+                        <a class="d-block px-3 py-2 text-decoration-none text-dark" href="/admin/catalogo">Equipos</a>
+                        <a class="d-block px-3 py-2 text-decoration-none text-dark" href="/admin/prestamos">Préstamos</a>
+                        <div class="dropdown-divider"></div>
+                        <button type="button" class="d-block w-100 text-start px-3 py-2 btn btn-link text-dark" onclick="logout()">Salir</button>
                     </div>
                 </div>
             </div>
@@ -222,7 +228,35 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/admin/gestionPrestamosAdmin.js"></script>
+    
+    <script src="/js/admin/gestionPrestamosAdmin.js">
+          function toggleHeaderMenu() {
+            const menu = document.getElementById('headerMenu');
+            const button = document.getElementById('menuToggleBtn');
+            if (!menu || !button) return;
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+    <script>
+      
+
+        function toggleHeaderMenu() {
+            const menu = document.getElementById('headerMenu');
+            const button = document.getElementById('menuToggleBtn');
+            if (!menu || !button) return;
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+        }
+
+        document.addEventListener('click', (event) => {
+            const menu = document.getElementById('headerMenu');
+            const button = document.getElementById('menuToggleBtn');
+            if (!menu || !button) return;
+            if (event.target.closest('#headerMenu') || event.target.closest('#menuToggleBtn')) return;
+            menu.style.display = 'none';
+        });
+
+     
+    </script>
 </body>
 
 </html>

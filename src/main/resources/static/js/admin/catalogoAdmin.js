@@ -136,6 +136,7 @@ async function loadEquipment() {
     }
 
     allEquipment = await response.json();
+    allEquipment.reverse();
     changePage(1);
 
   } catch (error) {
